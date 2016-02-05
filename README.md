@@ -13,6 +13,7 @@ They may also contain bugs that I haven't noticed. Feedback is appreciated.
 
 All credit for the companion guide and the exercises I'm trying to solve here obviously goes to 
 http://blogs.microsoft.co.il/dinazil/
+
 https://github.com/dinazil
 and
 http://blogs.microsoft.co.il/sasha/
