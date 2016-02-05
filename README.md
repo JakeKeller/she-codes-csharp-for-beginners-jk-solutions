@@ -12,9 +12,7 @@ Please keep in mind that I am an absolute beginner myself and my solutions are n
 They may also contain bugs that I haven't noticed. Feedback is appreciated.
 
 All credit for the companion guide and the exercises I'm trying to solve here obviously goes to 
-http://blogs.microsoft.co.il/dinazil/
-
-https://github.com/dinazil
+https://github.com/dinazil (http://blogs.microsoft.co.il/dinazil/)
 and
 http://blogs.microsoft.co.il/sasha/
 who wrote the companion together.
