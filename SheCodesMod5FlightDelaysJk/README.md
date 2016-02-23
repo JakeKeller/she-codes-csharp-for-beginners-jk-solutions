@@ -19,3 +19,6 @@ Dina and Sasha GoldShtein.
 http://blogs.microsoft.co.il/dinazil/
 http://blogs.microsoft.co.il/sasha/
 
+*Update: this code has been reviewed by J. Archer after it was posted on reddit. Codereview at: https://www.youtube.com/watch?v=1azd6ayEVgE
+He also presents his own solution:
+https://www.youtube.com/watch?v=1azd6ayEVgE
