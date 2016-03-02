@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SheCodesMod6BlackJack.Card">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAABAIAAAAAAAAAIAAAAAAAAAAAAAAEAAAAAAAAQ=</HashCode>
+      <FileName>Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SheCodesMod6BlackJack.DebugTests">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>DebugTests.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SheCodesMod6BlackJack.Deck">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAABAAAAAAAAAAAAAIEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Deck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SheCodesMod6BlackJack.Game">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIAAACAAIABAAACAAEgQIAAAAAAAAAAQABAQACAAAA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SheCodesMod6BlackJack.Messages">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAEBAAEgAAAAAAABAAQgAAAAgECCAAAAAAIAAIBAA=</HashCode>
+      <FileName>Messages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SheCodesMod6BlackJack.Program">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

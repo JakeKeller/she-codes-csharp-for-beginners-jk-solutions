@@ -33,7 +33,7 @@ namespace SheCodesMod6BlackJack
         public void PromptForRules(Messages gameMessages)
         {
             Console.WriteLine("\nPress R and Enter to display the Rules or Enter to continue");
-            if (Console.ReadLine().ToUpper() == "R")
+            if (Console.ReadLine().ToUpperInvariant() == "R")
                 Console.WriteLine(gameMessages.GameRules);
         }
 
@@ -87,7 +87,7 @@ namespace SheCodesMod6BlackJack
         public void UserDrawDecision(Messages gameMessages)
         {
             Console.WriteLine("\nMake Your Choice: Press Enter to draw a card \n(or press \"S\" and Enter to \"stand\".)");
-            if (Console.ReadLine().ToUpper() == "S")
+            if (Console.ReadLine().ToUpperInvariant() == "S")
             {
                 Console.WriteLine(gameMessages.UserStandsMessage);
                 this.CheckIfUserIsCloserTo21(gameMessages);
