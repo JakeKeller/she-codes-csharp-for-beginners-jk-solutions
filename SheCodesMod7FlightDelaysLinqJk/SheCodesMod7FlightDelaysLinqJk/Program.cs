@@ -141,8 +141,9 @@ namespace SheCodesMod7FlightDelaysLinqJk
                                               orderby averageDelay descending
                                               select new {Airport = departureDelayGroup.Key, Delay = averageDelay }).Take(10);
             Console.WriteLine("\nQuery10:\n");
+            // Note: I finally added some formatting. I added a field length (after comma) and a "-" for right alignment of object in that field.
             foreach (var airport in top10AverageDelayedAirports)
-                Console.WriteLine("Airport {0} had an average delay of {1:#.#} minutes.", airport.Airport, airport.Delay);
+                Console.WriteLine("Airport {0,-25} had an average delay of {1,-5:#.#} minutes.", airport.Airport, airport.Delay);
 
 
 
