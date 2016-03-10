@@ -19,12 +19,13 @@ namespace SheCodesMod7FlightDelaysLinqJk
             */
 
             // Query1. What were the arrival delays of all the flights from Boston, MA to Chicago, IL?
+            
             var delaysBostonToChicago = from flight in airlinePerformance2014
                                         where flight.OriginCityName == "Boston MA"
                                         && flight.DestinationCityName == "Chicago IL"
                                         select flight.ArrivalDelay;
 
-            // Query2.What werethe airportswith directflights toMonterey, CA ? (Hint: useq​uery.Distinct()​
+            // Query2.What were the airports with direct flights to Monterey, CA ? (Hint: useq​uery.Distinct()​
             //var AirportsWithdirectFlightsToMonterey = from flight in airlinePerformance2014
             //                                          where flight.DestinationCityName == "Monterey CA"
             //                                          select flight.OriginCityName;
@@ -54,20 +55,23 @@ namespace SheCodesMod7FlightDelaysLinqJk
             //Console.WriteLine("Average delay in minutes: {0:0.##}", averageDelay);
             ////// The # custom specifier rounds your numbers ("away from zero") to the desired point, just like Math.Round below:
             ////Console.WriteLine("Average delay in minutes: {0}", Math.Round(averageDelay, 2));
-
+            
             // Query5. From SheCodes solution. Using .Average():
             var arrivalDelays2 = (from flight in airlinePerformance2014
                                   select flight.ArrivalDelay).Average();
 
-            //  Query6. What was the origin and destination of the shortest flight in the data set, and what is the 
+            // Query6. What was the origin and destination of the shortest flight in the data set and what is the 
             // distance of that flight?
 
             var shortestFlight = (from flight in airlinePerformance2014
                                   orderby flight.Distance
                                   select new { flight.Distance, flight.OriginCityName, flight.DestinationCityName }).Take(1);
 
-            // At first I had trouble accessing the properties of the anonymous type (shortestFlight) created by the linq statement above. 
-            // However, all of the methods like FirstOrDefault(), Single() (and even more) below can that:
+            /*
+            At first I had trouble accessing the properties of the anonymous type (shortestFlight) created by the linq statement above. 
+            I didn't want to use a foreach statement for a sequence with just one object.
+            However, all of the methods like FirstOrDefault(), Single() (and even more) below can do that:
+            */
             Console.WriteLine("Query6:\nThe shortest flight was from {0} to {1} \nat a distance of {2} miles.\n", shortestFlight.FirstOrDefault().OriginCityName, shortestFlight.Single().DestinationCityName, shortestFlight.ElementAt(0).Distance);
 
             // Query7. What was the longest flight out of San Francisco, CA?
@@ -83,6 +87,7 @@ namespace SheCodesMod7FlightDelaysLinqJk
 
             // Query8. The weighted arrival delay of a flight is its arrival delay divided by the distance. What
             // was the flight with the largest weighted arrival delay out of Boston, MA?  
+            
             //var weighted = (from flight in airlinePerformance2014
             //                where flight.OriginCityName == "Boston MA"
             //                orderby (flight.ArrivalDelay / flight.Distance) descending
@@ -114,25 +119,33 @@ namespace SheCodesMod7FlightDelaysLinqJk
                 weighted.FirstOrDefault().ArrivalDelay,
                 weighted.FirstOrDefault().Distance);
 
-
-
             // 9. How many flights from Seattle, WA were not delayed on arrival?
+
             /*
             I made a pretty big mistake here when I used flight.ArrivalDelay == 0 at first.
             This left out hundreds of flights that arrived early!! Shecodes used flight.ArrivalDelay <= 0
             as below:
             */
-            //var undelayedFromSeattle = (from flight in airlinePerformance2014
-            //                           where flight.OriginCityName == "Seattle WA"
-            //                           where flight.ArrivalDelay <= 0
-            //                           select flight).Count();
-            //Console.WriteLine("{0} flights from Seattle were not delayed at all.", undelayedFromSeattle);
+
+            var undelayedFromSeattle = (from flight in airlinePerformance2014
+                                        where flight.OriginCityName == "Seattle WA"
+                                        where flight.ArrivalDelay <= 0
+                                        select flight).Count();
+            Console.WriteLine("{0} flights from Seattle were not delayed at all.", undelayedFromSeattle);
 
             // 10 What were the top 10 origin airports with the largest average departure delays, including the values of these delays?
-            /*
-            I'm stuck. I can get a list by largest average delay, but cannot figure out how to get a top ten list by airports from it. 
-            I could use a foreach iteration and lambda syntax would work, too.
-            */
+
+            var top10AverageDelayedAirports = (from flight in airlinePerformance2014
+                                              group flight.DepartureDelay by flight.OriginCityName into departureDelayGroup
+                                              let averageDelay = departureDelayGroup.Average()
+                                              orderby averageDelay descending
+                                              select new {Airport = departureDelayGroup.Key, Delay = averageDelay }).Take(10);
+            Console.WriteLine("\nQuery10:\n");
+            foreach (var airport in top10AverageDelayedAirports)
+                Console.WriteLine("Airport {0} had an average delay of {1:#.#} minutes.", airport.Airport, airport.Delay);
+
+
+
 
             //var arrivalDelays = from flight in airlinePerformance2014
             //                    select flight.ArrivalDelay;
