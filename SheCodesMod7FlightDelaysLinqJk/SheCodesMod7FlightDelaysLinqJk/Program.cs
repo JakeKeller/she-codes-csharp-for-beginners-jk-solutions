@@ -113,13 +113,13 @@ namespace SheCodesMod7FlightDelaysLinqJk
                             orderby weightedDelay descending
                             select flight
              ).Take(1);
-            Console.WriteLine("Query8:\nFrom {0} to {1} with an arrival delay of {2} and a distance of {3} miles.\n",
+            Console.WriteLine("Query8:\nFrom {0} to {1} with an arrival delay of {2} and a distance of {3} miles.",
                 weighted.FirstOrDefault().OriginCityName,
                 weighted.FirstOrDefault().DestinationCityName,
                 weighted.FirstOrDefault().ArrivalDelay,
                 weighted.FirstOrDefault().Distance);
 
-            // 9. How many flights from Seattle, WA were not delayed on arrival?
+            // Query9. How many flights from Seattle, WA were not delayed on arrival?
 
             /*
             I made a pretty big mistake here when I used flight.ArrivalDelay == 0 at first.
@@ -131,109 +131,146 @@ namespace SheCodesMod7FlightDelaysLinqJk
                                         where flight.OriginCityName == "Seattle WA"
                                         where flight.ArrivalDelay <= 0
                                         select flight).Count();
-            Console.WriteLine("{0} flights from Seattle were not delayed at all.", undelayedFromSeattle);
+            Console.WriteLine("\nQuery9\n:{0} flights from Seattle were not delayed at all.", undelayedFromSeattle);
 
-            // 10 What were the top 10 origin airports with the largest average departure delays, including the values of these delays?
+            // Query10 What were the top 10 origin airports with the largest average departure delays, including the values of these delays?
 
             var top10AverageDelayedAirports = (from flight in airlinePerformance2014
                                               group flight.DepartureDelay by flight.OriginCityName into departureDelayGroup
                                               let averageDelay = departureDelayGroup.Average()
                                               orderby averageDelay descending
                                               select new {Airport = departureDelayGroup.Key, Delay = averageDelay }).Take(10);
-            Console.WriteLine("\nQuery10:\n");
+            Console.WriteLine("\nQuery10:");
             // Note: I finally added some formatting. I added a field length (after comma) and a "-" for right alignment of object in that field.
             foreach (var airport in top10AverageDelayedAirports)
                 Console.WriteLine("Airport {0,-25} had an average delay of {1,-5:#.#} minutes.", airport.Airport, airport.Delay);
 
+            // Query11: (*) What is the airline with the worst average arrival delay on flights from New York, NY? 
+
+            var worstAverageDelayAirlineFromNY = (from flight in airlinePerformance2014
+                                                 where flight.OriginCityName == "New York NY"
+                                                 group flight.ArrivalDelay by flight.Carrier into arrivalDelayCarrierGroup
+                                                 let averageArrivalDelay = arrivalDelayCarrierGroup.Average()
+                                                 orderby averageArrivalDelay descending
+                                                 select new {Delay = averageArrivalDelay, Carrier = arrivalDelayCarrierGroup.Key}).Take(1);
+            Console.WriteLine("\nQuery11:\nAirline {0} had an average delay of {1: #.##} minutes\nfor flights from New York NY",
+                worstAverageDelayAirlineFromNY.ElementAtOrDefault(0).Carrier, worstAverageDelayAirlineFromNY.ElementAtOrDefault(0).Delay);
+
+            // Query 12: Which origin airport is the worst to fly from in terms of average departure delay if you are flying American Airlines
+            // (airline code: "AA")?
+
+            var worstOriginByAverageDepartureArrayForAA = (from flight in airlinePerformance2014
+                                                           where flight.Carrier == "AA"
+                                                           group flight.DepartureDelay by flight.OriginCityName into departureDelayOrigins
+                                                           let averageDepartureDelay = departureDelayOrigins.Average()
+                                                           orderby averageDepartureDelay descending
+                                                           select new { Delay = averageDepartureDelay, Origin = departureDelayOrigins.Key }).Take(1);
+
+            Console.WriteLine("\nQuery12:\nAA has an average departure delay of {0:#.##} minutes\nwhen flying out of {1}.",
+                worstOriginByAverageDepartureArrayForAA.ElementAtOrDefault(0).Delay, worstOriginByAverageDepartureArrayForAA.ElementAtOrDefault(0).Origin);
+
+            // If I want handy access to elements in a list, rather than a sequence like above, I can convert using .ToList():
+            var query12list = worstOriginByAverageDepartureArrayForAA.ToList();
+            Console.WriteLine("\nQuery12\nOn average, AA departs {0} with a delay of {1:#.##} minutes.", query12list[0].Origin, query12list[0].Delay);
+
+            // Query13: For all the 1 - stop flights between Boston, MA and Los Angeles, CA (not including direct flights), what was the flight path with the lowest
+            // average arrival and departure delay ? (Note that this query can take a very long time to run.)
+
+            /*
+            The following, awquard first had run for 21 minute without results when I stopped it. I assume this could have something to do with 
+            queries running (each time) when their results are called.
+            */
+
+            //var query13a = from flight in airlinePerformance2014
+            //               where flight.OriginCityName == "Boston MA"
+            //               where flight.DestinationCityName != "Los Angeles CA"
+            //               select flight;
+
+            //var query13b = from flight in airlinePerformance2014
+            //               where flight.OriginCityName != "Boston MA"
+            //               where flight.DestinationCityName == "Los Angeles CA"
+            //               select flight;
+
+            //var query13c = from flight in query13a
+            //               join oneStopFlight in query13b
+            //               on flight.DestinationCityName
+            //               equals oneStopFlight.OriginCityName
+            //               select flight;
+
+            //var query13d = (from flight in query13c
+            //                let averageArrivalDelay = (double)flight.ArrivalDelay / query13c.Count()
+            //                let averageDepartureDelay = (double)flight.DepartureDelay / query13c.Count()
+            //                let averageDelay = (averageArrivalDelay + averageDepartureDelay) / query13c.Count()
+            //                orderby averageDelay
+            //                select new { flight, averageDelay }
+            //                ).Take(1);
+            //Console.WriteLine("\nQuery13:\nFlights from Boston to Los Angeles via {0} had an average arrival and departure delay (combined) of {1}",
+            //    query13d.ElementAtOrDefault(0).flight.DestinationCityName, query13d.ElementAtOrDefault(0).averageDelay);
+
+            // Trying to speed it up by casting the query results to lists. The following code took 9 secondes to run and displayed:
+            // Query13:
+            // Flights from Boston to Los Angeles via Phoenix AZ had an average arrival and dep
+            // arture delay(combined) of - 4,26052906325294E-12.
+
+            var query13a = from flight in airlinePerformance2014
+                           where flight.OriginCityName == "Boston MA"
+                           where flight.DestinationCityName != "Los Angeles CA"
+                           select flight;
+            var query13aList = query13a.ToList();
+
+            var query13b = from flight in airlinePerformance2014
+                           where flight.OriginCityName != "Boston MA"
+                           where flight.DestinationCityName == "Los Angeles CA"
+                           select flight;
+            var query13bList = query13b.ToList();
+
+            var query13c = from flight in query13aList
+                           join oneStopFlight in query13bList
+                           on flight.DestinationCityName
+                           equals oneStopFlight.OriginCityName
+                           select flight;
+            var query13cList = query13c.ToList();
+
+            var query13d = (from flight in query13cList
+                            let averageArrivalDelay = (double)flight.ArrivalDelay / query13cList.Count()
+                            let averageDepartureDelay = (double)flight.DepartureDelay / query13cList.Count()
+                            let averageDelay = (averageArrivalDelay + averageDepartureDelay) / query13cList.Count()
+                            orderby averageDelay
+                            select new { flight, averageDelay }
+                            ).Take(1);
+            // I don't understand why custom numeric format strings cause the number (negative double) to not be displayed:
+            //Console.WriteLine("\nQuery13:\nFlights from Boston to New york via {0} had an average arrival and departure delay (combined) of {1:#.##}.",
+            //    query13d.ElementAtOrDefault(0).flight.DestinationCityName, query13d.ElementAtOrDefault(0).averageDelay);
+            
+            Console.WriteLine("\nQuery13:\nFlights from Boston to Los Angeles via {0} had an average arrival and departure delay (combined) of {1}.",
+                query13d.ElementAtOrDefault(0).flight.DestinationCityName, query13d.ElementAtOrDefault(0).averageDelay);
 
 
+            /* 
+            The following solution by Shecodes took 14:45 minutes to run and produced the result: Boston via Tampa FL to Los Angeles.
+            when run in their solution.
+            In this solution (why?) it ran about 5 minutes (probably bc of less multitasking) and produced:
+            "Query13:
+            Boston MA to Los Angeles CA via Tampa FL had average
+            combined arrival/departure delay of -24,3113821138211
+            */
+            
+            var query13 = (from leg1 in airlinePerformance2014
+                           where leg1.OriginCityName == "Boston MA"
+                           from leg2 in airlinePerformance2014
+                           where leg2.OriginCityName == leg1.DestinationCityName
+                           where leg2.DestinationCityName == "Los Angeles CA"
+                           let totalDelay = leg1.DepartureDelay + leg1.ArrivalDelay + leg2.DepartureDelay + leg2.ArrivalDelay
+                           group totalDelay by new { O1 = leg1.OriginCityName, O2 = leg1.DestinationCityName, D = leg2.DestinationCityName } into g
+                           let averageTotalDelay = g.Average()
+                           orderby averageTotalDelay ascending
+                           select new { FlightLegs = g.Key, averageTotalDelay = averageTotalDelay }
+              ).Take(1);
+            var query13List = query13.ToList();
 
-            //var arrivalDelays = from flight in airlinePerformance2014
-            //                    select flight.ArrivalDelay;
-            //double averageDelay = (double)arrivalDelays.Sum() / (double)arrivalDelays.Count();
-            //Console.WriteLine("Average delay in minutes: {0:0.####}", averageDelay);
-            //Console.WriteLine("Average delay in minutes: {0}", Math.Round(averageDelay, 2));
-
-
-            //var averageDelayList = (from flight in airlinePerformance2014
-            //                        orderby (flight.DepartureDelay)
-            //                        let averageDelay = (double)flight.DepartureDelay / airlinePerformance2014.Count()
-            //                        orderby averageDelay descending, flight.OriginCityName
-            //                        select new { OriginCityName = flight.OriginCityName, AverageDepartureDelay = averageDelay }).Take(10);
-
-            ////var top10ByAirports = (from line in flightsByAverageDelay
-            ////                       where line.OriginCityName.
-            ////                       select new {Origin = line.OriginCityName.Distinct(), line.AverageDepartureDelay }).Take(10);
-
-
-            //// orderby flight.DepartureDelay / airlinePerformance2014.Count() descending
-
-            //StringBuilder sb = new StringBuilder();
-
-            //foreach (var flight in flightsByAverageDelay)
-            //{
-            //    sb.Append(flight.OriginCityName + ":" + flight.AverageDepartureDelay + "\n");
-            //}
-            //Console.WriteLine(sb);
-
-            //// SheCodes solution: // MINE SEEMS WRONG! // 
-            //var top10 = (from flight in airlinePerformance2014
-            //               group flight.DepartureDelay by flight.OriginCityName into g
-            //               let averageDelay = g.Average()
-            //               orderby averageDelay descending
-            //               select new { Airport = g.Key, DepartureDelay = averageDelay }
-            //  ).Take(10);
-
-            //StringBuilder sb = new StringBuilder();
-
-            //foreach (var flight in top10)
-            //{
-            //    sb.Append(flight.Airport + ":" + flight.DepartureDelay + "\n");
-            //}
-            //Console.WriteLine(sb);
-
-
-            //foreach (var flight in flightsSortedByArrivalDelayDescending.Take(10))
-            //{
-            //    Console.WriteLine("Flight from {0} to {1} had a delay of {2} minutes!", flight.OriginCityName, flight.DestinationCityName, flight.ArrivalDelay);
-            //}
-
-            //for (int i = 0; i < 11; i++)
-            //{
-            //    foreach (var flight in flightsSortedByArrivalDelayDescending.Take(10))
-            //    {
-            //        Console.WriteLine("Flight from {0} to {1} had a delay of {2} minutes!", flight.OriginCityName, flight.DestinationCityName, flight.ArrivalDelay);
-            //    }
-
-            //}
-
-
-            //var tenLargestArrivalDelayFlights = new List<FlightInfo>();
-
-            //for (int i = 0; i < 11; i++)
-            //{
-            //    tenLargestArrivalDelayFlights.Add((FlightInfo)flightsSortedByArrivalDelayDescending.Skip(i)); 
-            //}
-
-            //foreach (var flight in tenLargestArrivalDelayFlights)
-            //    Console.WriteLine("Flight from {0} to {1} had a delay of {3} minutes!", flight.OriginCityName, flight.DestinationCityName, flight.ArrivalDelay);
-
-            // 
-
-
-
-
-            //// 1. What were the arrival delays of all the flights from Boston, MA to Chicago, IL?
-            //var delaysBostonToChicago = airlinePerformance2014.Where(p => p.OriginCityName == "Boston MA").Where(p => p.DestinationCityName == "Chicago IL");
-            //foreach (var flight in delaysBostonToChicago)
-            //    Console.WriteLine(flight.ArrivalDelay);
-
-            //Console.WriteLine(delaysBostonToChicago.Sum(p => p.ArrivalDelay));
-
-
-
-
-
+            Console.WriteLine("{0} to {1} via {2} had average\ncombined arrival/departure delay of {3}",
+                query13List[0].FlightLegs.O1, query13List[0].FlightLegs.D, query13List[0].FlightLegs.O2, query13List[0].averageTotalDelay);
+            
             /* 
             Use lambda expressions to query the data.
             Firstly, I want to select all flights from New York to Los Angeles.
