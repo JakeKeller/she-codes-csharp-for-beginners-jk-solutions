@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DDC44410-021D-401C-8642-BB7C750DCF28}</ProjectGuid>
+    <ProjectGuid>{D6073D56-60D7-4E7E-9B01-8A9BF8275695}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SheCodesMod7FlightDelaysLinqJk</RootNamespace>
-    <AssemblyName>SheCodesMod7FlightDelaysLinqJk</AssemblyName>
+    <RootNamespace>SheCodesMod7FlightDelaysMethodSyntax</RootNamespace>
+    <AssemblyName>SheCodesMod7FlightDelaysMethodSyntax</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,17 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlightInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="airline-on-time-performance-sep2014-us.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="airlinePerformanceLinqTestForLibreOfficeSHEET2.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

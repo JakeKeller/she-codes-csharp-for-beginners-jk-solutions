@@ -19,9 +19,6 @@ namespace SheCodesMod7FlightDelaysLinqJk
 
         public static List<FlightInfo> PopulateListFromCSV(string csvFile, List<FlightInfo> listName)
         {
-            // For each row read by the streamreader run a .Add with a newly parsed object of class FlightInfo.
-            // Read in a row, split the string into strings(or rather appropriate types) by comma
-
             int invalidLines = 0;
             int validLines = 0;
 
@@ -31,7 +28,6 @@ namespace SheCodesMod7FlightDelaysLinqJk
             StreamReader reader = new StreamReader(csvFile);
 
             reader.ReadLine().Skip(1);
-
 
             while ((line = reader.ReadLine()) != null)
             {
@@ -51,24 +47,24 @@ namespace SheCodesMod7FlightDelaysLinqJk
                     validLines++;
                 }
                 else
-                    invalidLines++; // Keep these in mind! They might be why shecodes and j.archer get different results
-                // because they didn't weed out as many lines. And maybe I shouldn't weed out any information that can be used?
-                // But if one flight delay way unknown, then it doesn't make sense to divide 20min. delay by 10 flights (where only 9 
-                // included delay data), correct? This is about averages after all.
-                // Possibly include a class for debugging and csv infos where these things are stored as properties. E.g. csvAnalysis
-                
-                // Parse to class here :)
+                    invalidLines++;
+                /*
+                Keep the invald lines in mind! They might be why shecodes and j.archer get different results
+                because they weeded out a different amount of "invalid" lines in the csv. 
+                [I checked and no, at least shecodes' and my version have the same amount of valid lines]
+                Does it make sense to ignore a line where only one item is missing in a query that only concerns the other items?
+                Ideally, I would weed out invalid lines specifically for a query.
 
+                Idea: Possibly include a class for debugging and csv infos where these things are stored as properties. E.g. csvAnalysis.
+                In there I could also make an incrementing line counter variable and implement error messages pointing to the line 
+                where an invalid entry was found or rather print out a message detailing how many lines were weeded out for what 
+                specific problem (null entries, missing entries (of type x) etc.etc.).
+                */
             }
             Console.WriteLine("Please Note:\nThe analysis below is based on data from {0} valid flights in the csv file.\n" +
                 "({1} flight entries/lines in the csv were invalid and not included!)\n", validLines, invalidLines);
             return airlinePerformance2014;
-            /* 
-            Idea: Make incrementing line counter and implement error message pointing to the line where an invalid entry was found
-            or rather print out a message detailing how many lines were weeded out for what specific problem (null entries, etc.etc.).
-            */
         }
-
         /// <summary>
         /// Checks each line of the CSV for validity: No column except column 8 can be empty and there can be no more than 8 columns in a line.
         /// </summary>

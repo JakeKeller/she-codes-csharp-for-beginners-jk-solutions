@@ -10,9 +10,10 @@ namespace SheCodesMod7FlightDelaysLinqJk
     {
         static void Main(string[] args)
         {
-            const string csvName = "airline-on-time-performance-sep2014-us.csv";
+            // const string csvName = "airline-on-time-performance-sep2014-us.csv";
+            const string csvName = "airlinePerformanceLinqTestForLibreOfficeSHEET2.csv";
             List<FlightInfo> airlinePerformance2014 = new List<FlightInfo>() { };
-            FlightInfo.PopulateListFromCSV(csvName, airlinePerformance2014);              
+            FlightInfo.PopulateListFromCSV(csvName, airlinePerformance2014);
 
             // Query1. What were the arrival delays of all the flights from Boston, MA to Chicago, IL?
             var delaysBostonToChicago = from flight in airlinePerformance2014
@@ -49,7 +50,7 @@ namespace SheCodesMod7FlightDelaysLinqJk
             //Console.WriteLine("Average delay in minutes: {0:0.##}", averageDelay);
             ////// The # custom specifier rounds your numbers ("away from zero") to the desired point, just like Math.Round below:
             ////Console.WriteLine("Average delay in minutes: {0}", Math.Round(averageDelay, 2));
-            
+
             // Query5. From SheCodes solution. Using .Average():
             var arrivalDelays2 = (from flight in airlinePerformance2014
                                   select flight.ArrivalDelay).Average();
@@ -125,10 +126,10 @@ namespace SheCodesMod7FlightDelaysLinqJk
 
             // Query10 What were the top 10 origin airports with the largest average departure delays, including the values of these delays?
             var top10AverageDelayedAirports = (from flight in airlinePerformance2014
-                                              group flight.DepartureDelay by flight.OriginCityName into departureDelayGroup
-                                              let averageDelay = departureDelayGroup.Average()
-                                              orderby averageDelay descending
-                                              select new {Airport = departureDelayGroup.Key, Delay = averageDelay }).Take(10);
+                                               group flight.DepartureDelay by flight.OriginCityName into departureDelayGroup
+                                               let averageDelay = departureDelayGroup.Average()
+                                               orderby averageDelay descending
+                                               select new { Airport = departureDelayGroup.Key, Delay = averageDelay }).Take(10);
             Console.WriteLine("\nQuery10:");
             // Note: I finally added some formatting. I added a field length (after comma) and a "-" for right alignment of object in that field.
             foreach (var airport in top10AverageDelayedAirports)
@@ -136,11 +137,11 @@ namespace SheCodesMod7FlightDelaysLinqJk
 
             // Query11: What is the airline with the worst average arrival delay on flights from New York, NY? 
             var worstAverageDelayAirlineFromNY = (from flight in airlinePerformance2014
-                                                 where flight.OriginCityName == "New York NY"
-                                                 group flight.ArrivalDelay by flight.Carrier into arrivalDelayCarrierGroup
-                                                 let averageArrivalDelay = arrivalDelayCarrierGroup.Average()
-                                                 orderby averageArrivalDelay descending
-                                                 select new {Delay = averageArrivalDelay, Carrier = arrivalDelayCarrierGroup.Key}).Take(1);
+                                                  where flight.OriginCityName == "New York NY"
+                                                  group flight.ArrivalDelay by flight.Carrier into arrivalDelayCarrierGroup
+                                                  let averageArrivalDelay = arrivalDelayCarrierGroup.Average()
+                                                  orderby averageArrivalDelay descending
+                                                  select new { Delay = averageArrivalDelay, Carrier = arrivalDelayCarrierGroup.Key }).Take(1);
             Console.WriteLine("\nQuery11:\nAirline {0} had an average delay of {1: #.##} minutes\nfor flights from New York NY",
                 worstAverageDelayAirlineFromNY.ElementAtOrDefault(0).Carrier, worstAverageDelayAirlineFromNY.ElementAtOrDefault(0).Delay);
 
@@ -209,28 +210,26 @@ namespace SheCodesMod7FlightDelaysLinqJk
                            select flight;
             var query13bList = query13b.ToList();
 
-            var query13c = from flight in query13aList
-                           join oneStopFlight in query13bList
-                           on flight.DestinationCityName
-                           equals oneStopFlight.OriginCityName
-                           select flight;
+            var query13c = from flightleg1 in query13aList
+                           join flightleg2 in query13bList on flightleg1.DestinationCityName equals flightleg2.OriginCityName
+                           select new { flightleg1, flightleg2 };
             var query13cList = query13c.ToList();
 
-            var query13d = (from flight in query13cList
-                            let relevantFlights = query13cList.Count()
-                            let arrivalDelay =+ flight.ArrivalDelay
-                            let departureDelay = flight.DepartureDelay
-                            let averageArrivalDelay = (double)flight.ArrivalDelay / query13cList.Count()
-                            let averageDepartureDelay = (double)flight.DepartureDelay / query13cList.Count()
-                            let averageDelay = (averageArrivalDelay + averageDepartureDelay) /// query13cList.Count()
-                            orderby averageDelay
-                            // selecting a number of variables for debugging purposes:
-                            select new { flight, arrivalDelay, departureDelay, averageArrivalDelay, averageDepartureDelay, relevantFlights, averageDelay }
-                            ).Take(1);
-            var query13dList = query13d.ToList();
+            //var query13d = (from flight in query13cList
+            //                let relevantFlights = query13cList.Count()
+            //                let arrivalDelay = flight.ArrivalDelay
+            //                let departureDelay = flight.DepartureDelay
+            //                let averageArrivalDelay = (double)flight.ArrivalDelay / query13cList.Count()
+            //                let averageDepartureDelay = (double)flight.DepartureDelay / query13cList.Count()
+            //                let averageDelay = ((averageArrivalDelay + averageDepartureDelay) / 2)
+            //                orderby averageDelay
+            //                // selecting a number of variables for debugging purposes:
+            //                select new { flight, arrivalDelay, departureDelay, averageArrivalDelay, averageDepartureDelay, relevantFlights, averageDelay }
+            //                ).Take(1);
+            //var query13dList = query13d.ToList();
 
-            Console.WriteLine("\nQuery13:\nFlights from Boston to Los Angeles via {0} had an average arrival and departure delay (combined) of {1}.",
-                query13d.ElementAtOrDefault(0).flight.DestinationCityName, query13d.ElementAtOrDefault(0).averageDelay);
+            //Console.WriteLine("\nQuery13:\nFlights from Boston to Los Angeles via {0} had an average arrival and departure delay (combined) of {1}.",
+            //    query13d.ElementAtOrDefault(0).flight.DestinationCityName, query13d.ElementAtOrDefault(0).averageDelay);
 
             // I am puzzled as to why my custom numeric format strings "1:#.##" cause the value (negative double) to not be displayed:
             // The debugger shows it as "-1.651283924854197E-05".
