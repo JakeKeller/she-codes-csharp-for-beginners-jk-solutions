@@ -18,6 +18,7 @@ namespace SheCodesMod7WordCount
                                         orderby pair.Value descending
                                         select pair).Take(100);
             foreach (var pair in mostfrequent100words)
+                // Used custom string formatting for a nicer looking output to the console.
                 Console.WriteLine("{0:-30} : {1}", pair.Key, pair.Value);
 
             Console.ReadLine();
