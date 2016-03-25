@@ -10,8 +10,8 @@ namespace SheCodesMod7FlightDelaysLinqJk
     {
         static void Main(string[] args)
         {
-            // const string csvName = "airline-on-time-performance-sep2014-us.csv";
-            const string csvName = "airlinePerformanceLinqTestForLibreOfficeSHEET2.csv";
+            const string csvName = "airline-on-time-performance-sep2014-us.csv";
+            // const string csvName = "airlinePerformanceLinqTestForLibreOfficeSHEET2.csv";
             List<FlightInfo> airlinePerformance2014 = new List<FlightInfo>() { };
             FlightInfo.PopulateListFromCSV(csvName, airlinePerformance2014);
 
@@ -163,39 +163,11 @@ namespace SheCodesMod7FlightDelaysLinqJk
 
             // Query13: For all the 1 - stop flights between Boston, MA and Los Angeles, CA (not including direct flights), what was the flight path with the lowest
             // average arrival and departure delay ? (Note that this query can take a very long time to run.)
+            
             /*
-            The following, aqward first try had run for 21 minute without results when I stopped it. I assume this could have something to do with linq
-            queries running (each time) when their results are called.
-            */
-            //var query13a = from flight in airlinePerformance2014
-            //               where flight.OriginCityName == "Boston MA"
-            //               where flight.DestinationCityName != "Los Angeles CA"
-            //               select flight;
-
-            //var query13b = from flight in airlinePerformance2014
-            //               where flight.OriginCityName != "Boston MA"
-            //               where flight.DestinationCityName == "Los Angeles CA"
-            //               select flight;
-
-            //var query13c = from flight in query13a
-            //               join oneStopFlight in query13b
-            //               on flight.DestinationCityName
-            //               equals oneStopFlight.OriginCityName
-            //               select flight;
-
-            //var query13d = (from flight in query13c
-            //                let averageArrivalDelay = (double)flight.ArrivalDelay / query13c.Count()
-            //                let averageDepartureDelay = (double)flight.DepartureDelay / query13c.Count()
-            //                let averageDelay = (averageArrivalDelay + averageDepartureDelay) / query13c.Count()
-            //                orderby averageDelay
-            //                select new { flight, averageDelay }
-            //                ).Take(1);
-            //Console.WriteLine("\nQuery13:\nFlights from Boston to Los Angeles via {0} had an average arrival and departure delay (combined) of {1}",
-            //    query13d.ElementAtOrDefault(0).flight.DestinationCityName, query13d.ElementAtOrDefault(0).averageDelay);
-
-            /*
-            Trying to speed it up by storing the query results to lists. The code below fixed a division error I made and by producing
-            preliminary results rather than calling the same queries over and over again. It takes between 9 and 30 seconds to run on my system.
+            This solution (took me forever to understand a join) breaks up the process into smaller steps and uses join instead of multiple from and where clauses. It took a little more than 5 seconds to run.
+            Result: Boston MA via Tampa FL to Los Angeles CA with an average delay of -24.31 minutes. The debugger shows that there is a total of 36 flight connections.
+            List query13aList has 8641 members, list query13bList 17073 and query13cList an incredible 3 875 772 members. Stumped as to why that is.
             */
 
             var query13a = from flight in airlinePerformance2014
@@ -210,64 +182,26 @@ namespace SheCodesMod7FlightDelaysLinqJk
                            select flight;
             var query13bList = query13b.ToList();
 
-            var query13c = from flightleg1 in query13aList
-                           join flightleg2 in query13bList on flightleg1.DestinationCityName equals flightleg2.OriginCityName
-                           select new { flightleg1, flightleg2 };
+            var query13c = from flightLeg1 in query13aList
+                           join flightLeg2 in query13bList on flightLeg1.DestinationCityName equals flightLeg2.OriginCityName
+                           select new
+                           {
+                               Connection = flightLeg1.OriginCityName + " via " + flightLeg1.DestinationCityName + " to " + flightLeg2.DestinationCityName,
+                               TotalDelay = (flightLeg1.ArrivalDelay + flightLeg1.DepartureDelay + flightLeg2.ArrivalDelay + flightLeg2.DepartureDelay)
+                           };
+
             var query13cList = query13c.ToList();
 
-            //var query13d = (from flight in query13cList
-            //                let relevantFlights = query13cList.Count()
-            //                let arrivalDelay = flight.ArrivalDelay
-            //                let departureDelay = flight.DepartureDelay
-            //                let averageArrivalDelay = (double)flight.ArrivalDelay / query13cList.Count()
-            //                let averageDepartureDelay = (double)flight.DepartureDelay / query13cList.Count()
-            //                let averageDelay = ((averageArrivalDelay + averageDepartureDelay) / 2)
-            //                orderby averageDelay
-            //                // selecting a number of variables for debugging purposes:
-            //                select new { flight, arrivalDelay, departureDelay, averageArrivalDelay, averageDepartureDelay, relevantFlights, averageDelay }
-            //                ).Take(1);
-            //var query13dList = query13d.ToList();
+            var query13d = from item in query13cList.AsQueryable()
+                           group item.TotalDelay by item.Connection into g
+                           let averageTotalDelay = (double)g.Average()
+                           orderby averageTotalDelay
+                           select new { Connection = g.Key, AverageTotalDelay = averageTotalDelay };
+            var query13dList = query13d.ToList();
 
-            //Console.WriteLine("\nQuery13:\nFlights from Boston to Los Angeles via {0} had an average arrival and departure delay (combined) of {1}.",
-            //    query13d.ElementAtOrDefault(0).flight.DestinationCityName, query13d.ElementAtOrDefault(0).averageDelay);
+            Console.WriteLine("\nQuery13:\nConnection: {0} had an average arrival and departure delay (combined) of {1:#.##} minutes.",
+                query13dList.ElementAtOrDefault(0).Connection, query13d.ElementAtOrDefault(0).AverageTotalDelay);
 
-            // I am puzzled as to why my custom numeric format strings "1:#.##" cause the value (negative double) to not be displayed:
-            // The debugger shows it as "-1.651283924854197E-05".
-            //Console.WriteLine("\nQuery13:\nFlights from Boston to New york via {0} had an average arrival and departure delay (combined) of {1:#.##}.",
-            //    query13d.ElementAtOrDefault(0).flight.DestinationCityName, query13d.ElementAtOrDefault(0).averageDelay);
-
-
-            /* 
-            The following solution by Shecodes took about 5 minutes and produced:
-            "Query13:
-            Boston MA to Los Angeles CA via Tampa FL had average
-            combined arrival/departure delay of -24,3113821138211
-            */
-
-            //var query13 = (from leg1 in airlinePerformance2014
-            //               where leg1.OriginCityName == "Boston MA"
-            //               from leg2 in airlinePerformance2014
-            //               where leg2.OriginCityName == leg1.DestinationCityName
-            //               where leg2.DestinationCityName == "Los Angeles CA"
-            //               let totalDelay = leg1.DepartureDelay + leg1.ArrivalDelay + leg2.DepartureDelay + leg2.ArrivalDelay
-            //               group totalDelay by new { O1 = leg1.OriginCityName, O2 = leg1.DestinationCityName, D = leg2.DestinationCityName } into g
-            //               let averageTotalDelay = g.Average()
-            //               orderby averageTotalDelay ascending
-            //               select new { FlightLegs = g.Key, averageTotalDelay = averageTotalDelay}
-            //  ).Take(1);
-            //var query13List = query13.ToList();
-
-            //Console.WriteLine("{0} to {1} via {2} had average\ncombined arrival/departure delay of {3}",
-            //    query13List[0].FlightLegs.O1, query13List[0].FlightLegs.D, query13List[0].FlightLegs.O2, query13List[0].averageTotalDelay);
-
-            // Testing some of their results in the debugger:
-            //var query13test = from leg1 in airlinePerformance2014
-            //                  where leg1.OriginCityName == "Boston MA"
-            //                  from leg2 in airlinePerformance2014
-            //                  where leg2.DestinationCityName == "Los Angeles CA"
-            //                  where leg2.OriginCityName == leg1.DestinationCityName
-            //                  select new { leg1dd = leg1.DepartureDelay, leg1ad = leg1.ArrivalDelay, leg2dd = leg2.DepartureDelay, leg2ad = leg2.ArrivalDelay };
-            //var quer13testList = query13test.ToList();
 
             Console.ReadLine();
         }

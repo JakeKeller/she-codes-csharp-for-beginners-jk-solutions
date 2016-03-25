@@ -1,0 +1,7 @@
+CARRIER,ORIGIN_CITY_NAME,DEST_CITY_NAME,DEP_DELAY,ARR_DELAY,CANCELLED,DISTANCE,
+AA,Boston MA,Chicago IL,4,-7,0,2611,
+AA,Boston MA,Chicago IL,-8,-10,0,2611,
+AA,Boston MA,Chicago IL,-7,-17,0,2611,
+AA,Chicago IL,Los Angeles CA,-8,10,0,867,
+AA,Chicago IL,Los Angeles CA,-4,-23,0,867,
+AA,Chicago IL,Los Angeles CA,-8,-18,0,867,

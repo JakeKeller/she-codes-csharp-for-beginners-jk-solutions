@@ -54,6 +54,9 @@
     <None Include="airlinePerformanceLinqTestForLibreOfficeSHEET2.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="airlinePerformanceLinqTestForLibreOfficeSIMPLE.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
