@@ -1,0 +1,12 @@
+﻿<Window x:Class="SheCodesMod8BlackJackWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SheCodesMod8BlackJackWpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Image Source="H:\c#\Source\Repos\she-codes-csharp-for-beginners-jk-solutions\SheCodesMod8BlackJackWpf\SheCodesMod8BlackJackWpf\Resources\classic-cards\1.png" Width="72" Height="96" Margin="0,0,5,0" />
+    </Grid>
+</Window>
