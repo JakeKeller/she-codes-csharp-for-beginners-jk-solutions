@@ -64,6 +64,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Cards.cs" />
+    <Compile Include="Deck.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -101,12 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\classic-cards\2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\classic-cards\test54.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\classic-cards\23.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
