@@ -19,9 +19,24 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock x:Name="Game_Messages" Grid.ColumnSpan="3"/>
-        <Button Grid.Row="1"></Button>
-        <Button Grid.Row="1" Grid.Column="1"></Button>
-        <Button Grid.Row="1" Grid.Column="2"></Button>
+        <Button x:Name="Start" Grid.Row="1" FontSize="48" FontWeight="Bold">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect> Start!</Button>
+        <Button x:Name="Draw" Grid.Row="1" Grid.Column="1" FontWeight="Bold" FontSize="48">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect> Draw!</Button>
+        <Button x:Name="Pass" Grid.Row="1" Grid.Column="2" FontSize="48" FontWeight="Bold">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect> Pass!</Button>
         <Image Grid.Row="2" Source="H:\c#\Source\Repos\she-codes-csharp-for-beginners-jk-solutions\SheCodesMod8BlackJackWpf\SheCodesMod8BlackJackWpf\Resources\classic-cards\1.png" Width="72" Height="96" Margin="0,0,5,0" />
+        <DockPanel Grid.Row="3">
+            <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="24">My Score:</Label>
+            <TextBlock DockPanel.Dock="Bottom" Name="My_Score" FontSize="48" FontWeight="Bold" HorizontalAlignment="Center">0</TextBlock>
+        </DockPanel>
+        
+        <TextBlock Grid.Row="3" Grid.Column="2" Name="BaeBot_Score"></TextBlock>
     </Grid>
 </Window>

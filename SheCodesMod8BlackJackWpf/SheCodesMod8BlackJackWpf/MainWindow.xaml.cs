@@ -23,6 +23,10 @@ namespace SheCodesMod8BlackJackWpf
         public MainWindow()
         {
             InitializeComponent();
+            // Do I programmatically add images in the code-behind like this?
+            // https://arcanecode.com/2007/09/07/adding-wpf-controls-progrrammatically/
+            // Image image = new Image();
+            // image.Source = new BitmapImage(new Uri(@"\Path..."))
         }
     }
 }
