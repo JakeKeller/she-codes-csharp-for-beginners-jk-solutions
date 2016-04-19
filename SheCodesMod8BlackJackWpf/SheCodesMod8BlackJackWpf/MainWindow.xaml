@@ -18,15 +18,15 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="Game_Messages" Grid.ColumnSpan="3"/>
-        <Button x:Name="Start" Grid.Row="1" FontSize="48" FontWeight="Bold">
+        <TextBlock x:Name="TxtBlGameMessages" Grid.ColumnSpan="3"/>
+        <Button x:Name="BtnStartGame" Click="BtnStartGame_Click" Grid.Row="1" FontSize="48" FontWeight="Bold">
             <Button.Effect>
                 <DropShadowEffect/>
-            </Button.Effect> Start!</Button>
+            </Button.Effect> Start Game</Button>
         <Button x:Name="Draw" Grid.Row="1" Grid.Column="1" FontWeight="Bold" FontSize="48">
             <Button.Effect>
                 <DropShadowEffect/>
-            </Button.Effect> Draw!</Button>
+            </Button.Effect> Hit me!</Button>
         <Button x:Name="Pass" Grid.Row="1" Grid.Column="2" FontSize="48" FontWeight="Bold">
             <Button.Effect>
                 <DropShadowEffect/>
