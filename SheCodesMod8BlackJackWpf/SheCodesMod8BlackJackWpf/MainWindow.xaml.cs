@@ -20,13 +20,17 @@ namespace SheCodesMod8BlackJackWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Messages gameMessages { get; set; }
+        
         public MainWindow()
         {
             InitializeComponent();
 
-            Messages gameMessages = new Messages();
+            gameMessages = new Messages();
+            
 
-            TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
+            //TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
+            //TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
             // Do I programmatically add images in the code-behind like this?
             // https://arcanecode.com/2007/09/07/adding-wpf-controls-progrrammatically/
             // Image image = new Image();
@@ -35,7 +39,7 @@ namespace SheCodesMod8BlackJackWpf
 
         private void BtnStartGame_Click(object sender, RoutedEventArgs e)
         {
-
+            TxtBlGameMessages.Text = gameMessages.GameRules;
         }
     }
 }

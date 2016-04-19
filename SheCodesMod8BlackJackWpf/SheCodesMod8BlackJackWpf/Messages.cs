@@ -14,7 +14,7 @@ namespace SheCodesMod8BlackJackWpf
     /// to keep the class. I think it will make the design less cluttered. It also looks somewhat similar to what was suggested by Even Mien here:
     /// http://stackoverflow.com/questions/630803/associating-enums-with-strings-in-c-sharp
     /// </summary>
-    class Messages
+    public class Messages
     {
         /* 
         
@@ -38,7 +38,7 @@ namespace SheCodesMod8BlackJackWpf
         {
             WelcomeMessage = "**************************************\n" +
                 "Welcome to (eternal) BlackJack (hell!)\n" +
-                "**************************************\n\n" +
+                "**************************************\n" +
                 "Your dealer, a self-aware artificial intelligence\n" +
                 "named BAE-BOT was caught trying to decrypt nuclear launchcodes\n" +
                 "\"for the lulz\" and has been sentenced to play a dumbed-down version\n" +

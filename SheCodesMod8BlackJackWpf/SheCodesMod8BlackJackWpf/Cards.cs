@@ -9,7 +9,7 @@ namespace SheCodesMod8BlackJackWpf
     /// <summary>
     /// Handles and verifies all possible cards in the deck, calculates their values etc.
     /// </summary>
-    class Card
+    public class Card
     {
         public static string[] ValidSuits()
         {

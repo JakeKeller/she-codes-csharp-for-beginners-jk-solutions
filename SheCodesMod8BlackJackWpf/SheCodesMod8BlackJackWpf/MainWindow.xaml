@@ -18,7 +18,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="TxtBlGameMessages" Grid.ColumnSpan="3"/>
+        <TextBlock x:Name="TxtBlGameMessages" Grid.ColumnSpan="3" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
         <Button x:Name="BtnStartGame" Click="BtnStartGame_Click" Grid.Row="1" FontSize="48" FontWeight="Bold">
             <Button.Effect>
                 <DropShadowEffect/>
@@ -31,7 +31,7 @@
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect> Pass!</Button>
-        <Image Grid.Row="2" Source="H:\c#\Source\Repos\she-codes-csharp-for-beginners-jk-solutions\SheCodesMod8BlackJackWpf\SheCodesMod8BlackJackWpf\Resources\classic-cards\1.png" Width="72" Height="96" Margin="0,0,5,0" />
+        <Image Grid.Row="2" Source="SheCodesMod8BlackJackWpf\SheCodesMod8BlackJackWpf\Resources\classic-cards\1.png" Width="72" Height="96" Margin="0,0,5,0" />
         <DockPanel Grid.Row="3">
             <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="24">My Score:</Label>
             <TextBlock DockPanel.Dock="Bottom" Name="My_Score" FontSize="48" FontWeight="Bold" HorizontalAlignment="Center">0</TextBlock>

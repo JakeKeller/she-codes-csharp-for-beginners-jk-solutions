@@ -9,7 +9,7 @@ namespace SheCodesMod8BlackJackWpf
     /// <summary>
     /// Handles creation of a full deck of valid cards as well as the act of drawing a random card.
     /// </summary>
-    class Deck
+    public class Deck
     {
         public Card[] Cards { get; set; }
         public Random RandomGenerator { get; set; }
