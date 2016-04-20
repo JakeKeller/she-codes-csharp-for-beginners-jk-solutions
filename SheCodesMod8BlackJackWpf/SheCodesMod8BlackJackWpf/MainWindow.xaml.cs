@@ -27,7 +27,7 @@ namespace SheCodesMod8BlackJackWpf
             InitializeComponent();
 
             gameMessages = new Messages();
-            
+            TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
 
             //TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
             //TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
@@ -39,7 +39,14 @@ namespace SheCodesMod8BlackJackWpf
 
         private void BtnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            TxtBlGameMessages.Text = gameMessages.GameRules;
+            Game newGame = new Game();
+            TxtBlGameMessages.Text += gameMessages.StartMessage;
+            newGame.ComputerDrawsCard(gameMessages);
+        }
+
+        private void BtnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            TxtBlGameMessages.Text += gameMessages.GameRules;
         }
     }
 }

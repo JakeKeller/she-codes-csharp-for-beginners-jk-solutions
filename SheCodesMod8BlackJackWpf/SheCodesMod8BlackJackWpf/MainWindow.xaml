@@ -17,26 +17,20 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="TxtBlGameMessages" Grid.ColumnSpan="3" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
-        <Button x:Name="BtnStartGame" Click="BtnStartGame_Click" Grid.Row="1" FontSize="48" FontWeight="Bold">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect> Start Game</Button>
-        <Button x:Name="Draw" Grid.Row="1" Grid.Column="1" FontWeight="Bold" FontSize="48">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect> Hit me!</Button>
-        <Button x:Name="Pass" Grid.Row="1" Grid.Column="2" FontSize="48" FontWeight="Bold">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect> Pass!</Button>
+        <ScrollViewer Grid.ColumnSpan="3">
+            <TextBlock x:Name="TxtBlGameMessages" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+        </ScrollViewer>
+        <Button x:Name="BtnStartGame" Click="BtnStartGame_Click" Grid.Row="1" FontSize="48" FontWeight="Bold">Start Game</Button>
+        <Button x:Name="BtnDraw" Grid.Row="1" Grid.Column="1" FontWeight="Bold" FontSize="48">Hit me!</Button>
+        <Button x:Name="BtnPass" Grid.Row="1" Grid.Column="2" FontSize="48" FontWeight="Bold">Pass!</Button>
+        <Button x:Name="BtnHelp" Click="BtnHelp_Click" Grid.Row="2" Grid.Column="1" FontSize="36" FontWeight="Bold">Display Rules</Button>
         <Image Grid.Row="2" Source="SheCodesMod8BlackJackWpf\SheCodesMod8BlackJackWpf\Resources\classic-cards\1.png" Width="72" Height="96" Margin="0,0,5,0" />
-        <DockPanel Grid.Row="3">
+        <DockPanel Grid.Row="4">
             <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="24">My Score:</Label>
             <TextBlock DockPanel.Dock="Bottom" Name="My_Score" FontSize="48" FontWeight="Bold" HorizontalAlignment="Center">0</TextBlock>
         </DockPanel>
-        
-        <TextBlock Grid.Row="3" Grid.Column="2" Name="BaeBot_Score"></TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="2" Name="BaeBot_Score"></TextBlock>
     </Grid>
 </Window>

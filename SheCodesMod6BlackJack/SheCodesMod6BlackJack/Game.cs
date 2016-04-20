@@ -24,8 +24,8 @@ namespace SheCodesMod6BlackJack
         }
 
         /* 
-        Note: I wonder why shecodes didn't suggest making a player class or a class for each player.
-        Also, if we had "drawn" as a property of a card, we could handle the values of that card more easily here, like a "flag".
+        I wonder if it would be helpful to make one player class for both players or alternatively a class for each player.
+        Would it make sense to have "drawn" as a property of a card, like a "flag"?
         Also, should I make just one method called move rather than one for each player?
         Make as many methods universal as possible and leave the specifitiy in the messages?
         But the more I do that, the more I have to "pass around" parameters calling methods from classes all over 

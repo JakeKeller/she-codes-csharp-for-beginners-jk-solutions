@@ -34,12 +34,6 @@ namespace SheCodesMod8BlackJackWpf
         Make as many methods universal as possible and leave the specifitiy in the messages?
         But the more I do that, the more I have to "pass around" parameters calling methods from classes all over 
         */
-        public void PromptForRules(Messages gameMessages)
-        {
-            Console.WriteLine("\nPress R and Enter to display the Rules or Enter to continue");
-            if (Console.ReadLine().ToUpperInvariant() == "R")
-                Console.WriteLine(gameMessages.GameRules);
-        }
 
         public void ComputerDrawsCard(Messages gameMessages)
         {
