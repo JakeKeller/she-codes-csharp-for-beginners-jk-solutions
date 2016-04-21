@@ -20,7 +20,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.ColumnSpan="3">
-            <TextBlock x:Name="TxtBlGameMessages" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+            <TextBlock x:Name="TxtBlGameMessages" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" ScrollViewer.VerticalScrollBarVisibility="Visible" />
         </ScrollViewer>
         <Button x:Name="BtnStartGame" Click="BtnStartGame_Click" Grid.Row="1" FontSize="48" FontWeight="Bold">Start Game</Button>
         <Button x:Name="BtnDraw" Grid.Row="1" Grid.Column="1" FontWeight="Bold" FontSize="48">Hit me!</Button>

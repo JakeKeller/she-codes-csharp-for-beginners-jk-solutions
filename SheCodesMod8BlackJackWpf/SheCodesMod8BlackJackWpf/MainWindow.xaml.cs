@@ -42,6 +42,7 @@ namespace SheCodesMod8BlackJackWpf
             Game newGame = new Game();
             TxtBlGameMessages.Text += gameMessages.StartMessage;
             newGame.ComputerDrawsCard(gameMessages);
+            newGame.ComputerDrawsCard(gameMessages);
         }
 
         private void BtnHelp_Click(object sender, RoutedEventArgs e)

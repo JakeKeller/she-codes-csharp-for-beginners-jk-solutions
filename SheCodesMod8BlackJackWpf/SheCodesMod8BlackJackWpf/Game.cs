@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SheCodesMod8BlackJackWpf
 {
@@ -16,6 +17,7 @@ namespace SheCodesMod8BlackJackWpf
         public int UserScore { get; set; }
         public int ComputerScore { get; set; }
         public Deck Deck { get; set; }
+        public MainWindow mainWin { get; set; }
 
         public Game()
         {
@@ -25,13 +27,15 @@ namespace SheCodesMod8BlackJackWpf
             this.ComputerScore = 0;
 
             this.Deck = new Deck();
+
+            mainWin = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) as MainWindow;
         }
 
         /* 
         Note: I wonder why shecodes didn't suggest making a player class or a class for each player.
         Also, if we had "drawn" as a property of a card, we could handle the values of that card more easily here, like a "flag".
         Also, should I make just one method called move rather than one for each player?
-        Make as many methods universal as possible and leave the specifitiy in the messages?
+        Make as many methods universal as possible and leave the specificity in the messages?
         But the more I do that, the more I have to "pass around" parameters calling methods from classes all over 
         */
 
@@ -39,7 +43,7 @@ namespace SheCodesMod8BlackJackWpf
         {
             Card drawnCard = Deck.DrawCard();
             this.ComputerScore += drawnCard.GetValue();
-            Console.WriteLine("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
+            mainWin.TxtBlGameMessages.Text +=  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
 
             if (ComputerScore == 21)
             {
