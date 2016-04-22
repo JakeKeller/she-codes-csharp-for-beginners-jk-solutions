@@ -11,24 +11,9 @@ namespace SheCodesMod8BlackJackWpf
     /// </summary>
     public class Card
     {
-        public static string[] ValidSuits()
-        {
-            string[] validSuits = new string[] { "Hearts", "Spades", "Diamonds", "Clubs" };
-            return validSuits;
-        }
-
-        public static string[] ValidRanks()
-        {
-            string[] validRanks = new string[]
-            {
-                "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"
-            };
-
-            return validRanks;
-        }
-
         public string Suit { get; set; }
         public string Rank { get; set; }
+        public int ImageIdentifier { get; set; }
 
         public Card(string suit, string rank)
         {
@@ -37,6 +22,22 @@ namespace SheCodesMod8BlackJackWpf
             VerifySuitOrRank(suit, rank);
         }
 
+        public static string[] ValidSuits()
+        {
+            string[] validSuits = new string[] { "Diamonds", "Hearts", "Spades", "Clubs" };
+            return validSuits;
+        }
+
+        public static string[] ValidRanks()
+        {
+            string[] validRanks = new string[]
+            {
+                "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"
+            };
+
+            return validRanks;
+        }
+        
         public void VerifySuitOrRank(string suit, string rank)
         {
             // Now that I've created the Card array in Decks.cs I don't know why this method would still be needed!
@@ -91,6 +92,14 @@ namespace SheCodesMod8BlackJackWpf
                 this.Suit);
 
             return face;
+        }
+
+        public string GetImage()
+        {
+            string applicationPath = @"C:\Users\Jake\Documents\Visual Studio 2015\Projects\she-codes-csharp-for-beginners-jk-solutions\SheCodesMod8BlackJackWpf\SheCodesMod8BlackJackWpf\Resources\classic-cards\";
+            string imageFileExtension = ".png";
+            string ImageUri = string.Format(applicationPath + this.ImageIdentifier + imageFileExtension);
+            return ImageUri;
         }
 
     }

@@ -35,19 +35,21 @@ namespace SheCodesMod8BlackJackWpf
             // https://arcanecode.com/2007/09/07/adding-wpf-controls-progrrammatically/
             // Image image = new Image();
             // image.Source = new BitmapImage(new Uri(@"\Path..."))
+            
         }
 
-        private void BtnStartGame_Click(object sender, RoutedEventArgs e)
+        private async void BtnStartGame_Click(object sender, RoutedEventArgs e)
         {
             Game newGame = new Game();
-            TxtBlGameMessages.Text += gameMessages.StartMessage;
+            TxtBlGameMessages.Text = gameMessages.StartMessage;
             newGame.ComputerDrawsCard(gameMessages);
+            await Task.Delay(1000); // Pausing 1 second before next line is executed. See: http://stackoverflow.com/questions/15599884/how-to-put-delay-before-doing-an-operation-in-wpf
             newGame.ComputerDrawsCard(gameMessages);
         }
 
         private void BtnHelp_Click(object sender, RoutedEventArgs e)
         {
-            TxtBlGameMessages.Text += gameMessages.GameRules;
+            TxtBlGameMessages.Text = gameMessages.GameRules;
         }
     }
 }

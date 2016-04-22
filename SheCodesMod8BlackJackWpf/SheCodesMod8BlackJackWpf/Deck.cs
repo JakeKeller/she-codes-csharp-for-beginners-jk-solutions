@@ -34,7 +34,24 @@ namespace SheCodesMod8BlackJackWpf
                 }
             }
 
-            RandomGenerator = new Random();
+            int firstImage = 52;
+            int countDown = 0;
+            int offset = 0;
+
+            for (int i = 0; i < 52; i++)
+            {
+                if (countDown == 13)
+                {
+                    firstImage --;
+                    offset = 0;
+                    countDown = 0;
+                }
+                Cards[i].ImageIdentifier = (firstImage - offset);
+                offset += 4;
+                countDown++;
+            }
+
+                RandomGenerator = new Random();
 
         }
 

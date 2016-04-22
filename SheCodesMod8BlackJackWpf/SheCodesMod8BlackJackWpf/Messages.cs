@@ -39,21 +39,21 @@ namespace SheCodesMod8BlackJackWpf
             WelcomeMessage = "**************************************\n" +
                 "Welcome to (eternal) BlackJack (hell!)\n" +
                 "**************************************\n" +
-                "Your dealer, a self-aware artificial intelligence\n" +
-                "named BAE-BOT was caught trying to decrypt nuclear launchcodes\n" +
-                "\"for the lulz\" and has been sentenced to play a dumbed-down version\n" +
+                "Your dealer, a self-aware artificial intelligence " +
+                "named BAE-BOT was caught trying to decrypt nuclear launchcodes " +
+                "\"for the lulz\" and has been sentenced to play a dumbed-down version " +
                 "of BlackJack with humans for eternity. He's not happy about it.";
 
-            GameRules = "\n***Rules***\nWhoever gets 21 points (Blackjack!) wins.\n" +
+            GameRules = "***Rules***\nWhoever gets 21 points (Blackjack!) wins. -- " +
                 "Whoever goes over 21 points (Bust!) loses.\n" +
-                "After each player draws their initial two cards\n" +
-                "they can chose to draw another card\n" +
-                "or to \"stand\" when their turn comes.\n" +
-                "If they stand, whoever is closer to 21 wins.\n\n" +
-                "Keep in mind that the utmost goal should be to\n" +
-                "humiliate your opponent by getting a Blackjack!\n" +
-                "At least that's how BAE-BOT thinks about it...\n\n" +
-                "Know your cards: Ace is worth 1,\n" +
+                "After each player draws their initial two cards " +
+                "they can chose to draw another card " +
+                "or to \"stand\" when their turn comes. " +
+                "If they stand, whoever is closer to 21 wins.\n" +
+                "Keep in mind that the utmost goal should be to " +
+                "humiliate your opponent by getting a Blackjack! -- " +
+                "At least that's how BAE-BOT thinks about it...\n" +
+                "Know your cards: Ace is worth 1, " +
                 "Queen and Jack are each 10, King is 13.";
 
             StartMessage = "\n\nBAE-BOT started the game by drawing two cards.";

@@ -43,7 +43,9 @@ namespace SheCodesMod8BlackJackWpf
         {
             Card drawnCard = Deck.DrawCard();
             this.ComputerScore += drawnCard.GetValue();
-            mainWin.TxtBlGameMessages.Text +=  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
+            mainWin.BaeBot_Score.Text = this.ComputerScore.ToString();
+            mainWin.TxtBlGameMessages.Text =  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
+            mainWin.TxtBlGameMessages.Text = drawnCard.GetImage();
 
             if (ComputerScore == 21)
             {
