@@ -31,31 +31,36 @@ namespace SheCodesMod8BlackJackWpf
             TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
 
             string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards");
+            string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
 
             var TestImage = new Image();
             var TestImageFile = new BitmapImage();
             TestImageFile.BeginInit();
-            TestImageFile.UriSource = new Uri(String.Format(resourcesFolderPath + "1.png"));
+            TestImageFile.UriSource = new Uri(String.Format(resourcesFolderPath + "52.png"));
             TestImageFile.EndInit();
             TestImage.Source = TestImageFile;
 
-            ImgTest.Source = TestImageFile;
+            var TestImage2 = new Image();
+            //TestImage2.Margin = new Thickness(30);
 
-            //TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
-            //TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
-            // Do I programmatically add images in the code-behind like this?
-            // https://arcanecode.com/2007/09/07/adding-wpf-controls-progrrammatically/
-            // Image image = new Image();
-            // image.Source = new BitmapImage(new Uri(@"\Path..."))
-            
+
+            //var TestImageFile2 = new BitmapImage();
+            //TestImageFile2.BeginInit();
+            //TestImageFile2.UriSource = new Uri(String.Format(resourcesFolderPath + "4.png"));
+            //TestImageFile2.EndInit();
+            //TestImage2.Source = TestImageFile2;
+            //TestImage2.Margin = new Thickness(60, 0, 0, 0);          
+
+            CnvMyDeck.Children.Add(TestImage2);
+
         }
 
         private async void BtnStartGame_Click(object sender, RoutedEventArgs e)
         {
+            bool firstCard = true;
             Game newGame = new Game();
             TxtBlGameMessages.Text = gameMessages.StartMessage;
-            newGame.ComputerDrawsCard(gameMessages);
+            newGame.ComputerDrawsCard(gameMessages, firstCard);
             await Task.Delay(1000); // Pausing 1 second before next line is executed. See: http://stackoverflow.com/questions/15599884/how-to-put-delay-before-doing-an-operation-in-wpf
             newGame.ComputerDrawsCard(gameMessages);
         }

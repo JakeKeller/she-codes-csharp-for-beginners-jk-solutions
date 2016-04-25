@@ -40,17 +40,19 @@ namespace SheCodesMod8BlackJackWpf
         But the more I do that, the more I have to "pass around" parameters calling methods from classes all over 
         */
 
-        public void ComputerDrawsCard(Messages gameMessages)
+        public void ComputerDrawsCard(Messages gameMessages, bool firstCard = false)
         {
             Card drawnCard = Deck.DrawCard();
             this.ComputerScore += drawnCard.GetValue();
             mainWin.BaeBot_Score.Text = this.ComputerScore.ToString();
+
+
+            mainWin.GrdBaesDeck.Children.Add(drawnCard.GetImage(firstCard));
+
             mainWin.TxtBlGameMessages.Text =  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
 
-            //string appFolderPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            //string resourcesFolderPath = Path.Combine(Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards");
 
-            mainWin.TxtBlGameMessages.Text = drawnCard.GetImage();
+            //mainWin.TxtBlGameMessages.Text = drawnCard.GetImage();
 
             if (ComputerScore == 21)
             {

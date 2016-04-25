@@ -15,7 +15,10 @@ namespace SheCodesMod8BlackJackWpf
         public Random RandomGenerator { get; set; }
         public int drawnCardsCounter { get; set; }
 
-        // Constructor method which initializes the deck so all 52 cards are formatted to valid suits.
+        /// <summary>
+        /// Constructor method which initializes the deck so all 52 cards are formatted to valid suits. 
+        /// It also handles the process of assigning an image identifier to each card in the deck.
+        /// </summary>
         public Deck()
         {
             this.drawnCardsCounter = 0;
@@ -50,9 +53,7 @@ namespace SheCodesMod8BlackJackWpf
                 offset += 4;
                 countDown++;
             }
-
                 RandomGenerator = new Random();
-
         }
 
         public Card DrawCard()

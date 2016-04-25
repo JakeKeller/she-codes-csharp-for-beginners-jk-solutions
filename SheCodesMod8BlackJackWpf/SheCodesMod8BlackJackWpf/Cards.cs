@@ -1,13 +1,17 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using System.Windows;
 
 namespace SheCodesMod8BlackJackWpf
 {
     /// <summary>
-    /// Handles and verifies all possible cards in the deck, calculates their values etc.
+    /// Handles and verifies all possible cards in the deck, calculates their values, provides the image etc.
     /// </summary>
     public class Card
     {
@@ -78,11 +82,6 @@ namespace SheCodesMod8BlackJackWpf
             }
             else
                 return int.Parse(this.Rank);
-
-            /* 
-            Note: I wonder why shecodes doesn't suggest making value a property of the card class instead
-            of a method.
-            */
         }
 
         public string GetFace()
@@ -94,12 +93,26 @@ namespace SheCodesMod8BlackJackWpf
             return face;
         }
 
-        public string GetImage()
+        public Image GetImage(bool firstCard)
         {
-            string applicationPath = @"C:\Users\Jake\Documents\Visual Studio 2015\Projects\she-codes-csharp-for-beginners-jk-solutions\SheCodesMod8BlackJackWpf\SheCodesMod8BlackJackWpf\Resources\classic-cards\";
+            string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
             string imageFileExtension = ".png";
-            string ImageUri = string.Format(applicationPath + this.ImageIdentifier + imageFileExtension);
-            return ImageUri;
+            string imageUri = string.Format(resourcesFolderPath + this.ImageIdentifier + imageFileExtension);
+
+            Image image = new Image();
+            image.Source = new BitmapImage(new Uri(imageUri));
+            if (firstCard)
+            {
+                image.Margin = new System.Windows.Thickness(0, 0, 0, 0);
+            }
+            else
+            image.Margin = new System.Windows.Thickness(60, 0, 0, 0);
+
+            return image;
+
+            
+        
         }
 
     }
