@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace SheCodesMod8BlackJackWpf
 {
     /// <summary>
@@ -28,6 +29,18 @@ namespace SheCodesMod8BlackJackWpf
 
             gameMessages = new Messages();
             TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
+
+            string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards");
+
+            var TestImage = new Image();
+            var TestImageFile = new BitmapImage();
+            TestImageFile.BeginInit();
+            TestImageFile.UriSource = new Uri(String.Format(resourcesFolderPath + "1.png"));
+            TestImageFile.EndInit();
+            TestImage.Source = TestImageFile;
+
+            ImgTest.Source = TestImageFile;
 
             //TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
             //TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
@@ -51,5 +64,7 @@ namespace SheCodesMod8BlackJackWpf
         {
             TxtBlGameMessages.Text = gameMessages.GameRules;
         }
+
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,10 @@ namespace SheCodesMod8BlackJackWpf
             this.ComputerScore += drawnCard.GetValue();
             mainWin.BaeBot_Score.Text = this.ComputerScore.ToString();
             mainWin.TxtBlGameMessages.Text =  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
+
+            //string appFolderPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            //string resourcesFolderPath = Path.Combine(Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards");
+
             mainWin.TxtBlGameMessages.Text = drawnCard.GetImage();
 
             if (ComputerScore == 21)
