@@ -44,9 +44,8 @@ namespace SheCodesMod8BlackJackWpf
         {
             Card drawnCard = Deck.DrawCard();
             this.ComputerScore += drawnCard.GetValue();
-            mainWin.BaeBot_Score.Text = this.ComputerScore.ToString();
-
-
+            mainWin.TxbBaeBotScore.Text = this.ComputerScore.ToString();
+            
             mainWin.GrdBaesDeck.Children.Add(drawnCard.GetImage(firstCard));
 
             mainWin.TxtBlGameMessages.Text =  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
@@ -71,12 +70,13 @@ namespace SheCodesMod8BlackJackWpf
             }
         }
 
-        public void UserDrawsCard(Messages gameMessages)
+        public void UserDrawsCard(Messages gameMessages, bool firstCard = false)
         {
             Card drawnCard = Deck.DrawCard();
             this.UserScore += drawnCard.GetValue();
-            Console.WriteLine("You drew: \"{0}\". Your current score is: {1}.", drawnCard.GetFace(),
-                this.UserScore);
+            mainWin.TxbUserScore.Text = this.UserScore.ToString();
+            mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard));
+            mainWin.TxtBlGameMessages.Text = String.Format("You drew: \"{0}\". Your current score is: {1}.", drawnCard.GetFace(), this.UserScore);
 
             if (UserScore == 21)
             {
