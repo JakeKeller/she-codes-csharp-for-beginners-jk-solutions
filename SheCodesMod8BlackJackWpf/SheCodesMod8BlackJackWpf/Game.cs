@@ -56,18 +56,23 @@ namespace SheCodesMod8BlackJackWpf
             if (ComputerScore == 21)
             {
                 Console.WriteLine(gameMessages.BlackJackBanner);
-                this.ComputerWon = true; // Why do I still have this?
+                this.ComputerWon = true; // Why do I still have this property?
                 mainWin.TxtBlGameMessages.Text = gameMessages.BlackJackBanner;
                 mainWin.TxtBlGameMessages.Text += gameMessages.RandomComputerWonMessage(Deck);
-                QuitGame(); // Make this display a pop up window as required... and make start game clear the deck I guess?
+                GameOver(UserWon);
             }
 
             if (ComputerScore > 21)
             {
                 this.UserWon = true;
-                mainWin.TxtBlGameMessages.Text = gameMessages.BlackJackBanner;
+                mainWin.TxtBlGameMessages.Text = gameMessages.BustBanner;
                 mainWin.TxtBlGameMessages.Text += gameMessages.RandomUserWonMessage(Deck);
-                QuitGame();
+                GameOver(UserWon);
+            }
+            else
+            {
+                mainWin.BtnPass.IsEnabled = true;
+                mainWin.BtnDraw.IsEnabled = true;
             }
         }
 
@@ -84,7 +89,7 @@ namespace SheCodesMod8BlackJackWpf
                 Console.WriteLine(gameMessages.BlackJackBanner);
                 this.UserWon = true;
                 Console.WriteLine(gameMessages.RandomUserWonMessage(Deck));
-                QuitGame();
+                GameOver(UserWon);
             }
 
             if (UserScore > 21)
@@ -92,7 +97,7 @@ namespace SheCodesMod8BlackJackWpf
                 Console.WriteLine(gameMessages.BustBanner);
                 this.ComputerWon = true;
                 Console.WriteLine(gameMessages.RandomComputerWonMessage(Deck));
-                QuitGame();
+                GameOver(UserWon);
             }
         }
 
@@ -137,7 +142,7 @@ namespace SheCodesMod8BlackJackWpf
             if (UserScore > ComputerScore)
             {
                 Console.WriteLine(gameMessages.UserCloserTo21WinMessage);
-                QuitGame();
+                GameOver(UserWon);
             }
         }
 
@@ -146,21 +151,22 @@ namespace SheCodesMod8BlackJackWpf
             if (ComputerScore > UserScore)
             {
                 Console.WriteLine(gameMessages.ComputerCloserTo21WinMessage);
-                QuitGame();
+                GameOver(UserWon);
             }
         }
-        public void QuitGame()
+        public void GameOver(bool userWon)
         {
-            //MessageBox MsbQuitGame = new MessageBox;
-            //mainWin.GrdMainGrid.Children.Add(var MsbQuitGame = new MessageBox());
-            //Console.ReadLine();
-            //Environment.Exit(1);
+            string gameOverMessageBoxCaption = "Bae Bot won!";
+            if (userWon)
+            {
+                gameOverMessageBoxCaption = "You won!";
+            }            
 
-            MessageBoxResult result = MessageBox.Show("Would you like to restart the Game?", "Game Over!", MessageBoxButton.YesNo);
+            MessageBoxResult result = MessageBox.Show("Would you like to restart the Game?", gameOverMessageBoxCaption, MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
-                mainWin.TxtBlGameMessages.Text = "Please start a new Game!"; // is there a "clear this control (property) method?
+                mainWin.TxtBlGameMessages.Text = "Please start a new Game!";
                 mainWin.TxbBaeBotScore.Text = null;
                 mainWin.TxbUserScore.Text = null;
                 mainWin.GrdBaesDeck.Children.Clear();

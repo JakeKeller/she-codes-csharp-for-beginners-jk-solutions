@@ -29,6 +29,8 @@ namespace SheCodesMod8BlackJackWpf
 
             gameMessages = new Messages();
             TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
+            BtnDraw.IsEnabled = false;
+            BtnPass.IsEnabled = false;
 
             //string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             //string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
@@ -79,6 +81,15 @@ namespace SheCodesMod8BlackJackWpf
             TxtBlGameMessages.Text = gameMessages.GameRules;
             // Change this to a tool tip.
         }
-  
+
+        private void BtnDraw_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnPass_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

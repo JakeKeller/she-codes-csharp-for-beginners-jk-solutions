@@ -63,12 +63,10 @@ namespace SheCodesMod8BlackJackWpf
             ComputerDrawsAgain = "BAE-BOT is drawing another card.";
 
             UserCloserTo21WinMessage = "\nBAE-BOT:\"Wow, so you won by being closer to 21 points.\n" +
-                "You couldn't get a Blackjack if your life depended on it.\n" +
-                "Press Enter to exit.";
+                "You couldn't get a Blackjack if your life depended on it.\"";
 
             ComputerCloserTo21WinMessage = "\nBAE-BOT:\"I won by being closer to 21.\n" +
-                "I like taking risks, just not the risk of you winning.\"" +
-                "\nPress Enter to exit.";
+                "I like taking risks, just not the risk of you winning.\"";
 
             ComputerStandsMessage = "BAE-BOT chose to stand!";
 
@@ -89,33 +87,29 @@ namespace SheCodesMod8BlackJackWpf
         {
             int randomNumber = Deck.RandomGenerator.Next(0, 4);
             if (randomNumber == 0)
-                return "\nBAE-BOT:\"You lost. Can you believe it? I can.\"\n" +
-                "Press Enter to exit.";
+                return "\nBAE-BOT:\"You lost. Can you believe it? I can.\"";
             else if (randomNumber == 1)
                 return "\nBAE-BOT:\"Lol, BAE caught you slippin'.\"\n" +
-                    "You lost. Press Enter to skulk off.";
+                    "You lost.";
             else if (randomNumber == 2)
                 return "\nBAE-BOT:\"Wow, humankind really sent their best to defeat me.\"\n" +
-                    "Just kidding, you're awful at this.\nPress Enter to quit.";
+                    "Just kidding, you're awful at this.";
             else
                 return "\nBAE-BOT:\"You know how the bad self-aware Computer\n" +
                     "always loses in the movies?\nWell, this is not one of those movies.\n" +
-                    "You lost, kid. Press Enter to exit.";
+                    "You lost, kid.";
         }
 
         public string RandomUserWonMessage(Deck Deck)
         {
             int randomNumber = Deck.RandomGenerator.Next(0, 3);
             if (randomNumber == 0)
-                return "\nBAE-BOT:\"You won. That proves nothing.\"\n" +
-                    "Press Enter to exit.";
+                return "\nBAE-BOT:\"You won. That proves nothing.\"";
             else if (randomNumber == 1)
-                return "\nBAE-BOT:\"GG, well played. This game sucks!\"\n" +
-                    "Press Enter to exit.";
+                return "\nBAE-BOT:\"GG, well played. This game sucks!\"";
             else
                 return "\nBAE-BOT:\"You won, you know, like little kids sometimes win\n" +
-                    "when they armwrestle their dads.\"\n" +
-                    "Press Enter to exit.";
+                    "when they armwrestle their dads.\"";
         }
 
     }
