@@ -56,16 +56,17 @@ namespace SheCodesMod8BlackJackWpf
             if (ComputerScore == 21)
             {
                 Console.WriteLine(gameMessages.BlackJackBanner);
-                this.ComputerWon = true;
-                Console.WriteLine(gameMessages.RandomComputerWonMessage(Deck));
-                QuitGame();
+                this.ComputerWon = true; // Why do I still have this?
+                mainWin.TxtBlGameMessages.Text = gameMessages.BlackJackBanner;
+                mainWin.TxtBlGameMessages.Text += gameMessages.RandomComputerWonMessage(Deck);
+                QuitGame(); // Make this display a pop up window as required... and make start game clear the deck I guess?
             }
 
             if (ComputerScore > 21)
             {
-                Console.WriteLine(gameMessages.BustBanner);
                 this.UserWon = true;
-                Console.WriteLine(gameMessages.RandomUserWonMessage(Deck));
+                mainWin.TxtBlGameMessages.Text = gameMessages.BlackJackBanner;
+                mainWin.TxtBlGameMessages.Text += gameMessages.RandomUserWonMessage(Deck);
                 QuitGame();
             }
         }
@@ -150,8 +151,23 @@ namespace SheCodesMod8BlackJackWpf
         }
         public void QuitGame()
         {
-            Console.ReadLine();
-            Environment.Exit(1);
+            //MessageBox MsbQuitGame = new MessageBox;
+            //mainWin.GrdMainGrid.Children.Add(var MsbQuitGame = new MessageBox());
+            //Console.ReadLine();
+            //Environment.Exit(1);
+
+            MessageBoxResult result = MessageBox.Show("Would you like to restart the Game?", "Game Over!", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                mainWin.TxtBlGameMessages.Text = "Please start a new Game!"; // is there a "clear this control (property) method?
+                mainWin.TxbBaeBotScore.Text = null;
+                mainWin.TxbUserScore.Text = null;
+                mainWin.GrdBaesDeck.Children.Clear();
+                mainWin.GrdMyDeck.Children.Clear();
+            }
+            else
+                mainWin.Close();
         }
     }
 }

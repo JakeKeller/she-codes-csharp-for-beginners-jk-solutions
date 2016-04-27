@@ -23,7 +23,7 @@ namespace SheCodesMod8BlackJackWpf
         public string WelcomeMessage { get; set; }
         public string GameRules { get; set; }
         public string StartMessage { get; set; }
-        public string ComputerWonMessage { get; set; }
+        public string ComputerWonMessage { get; set; } // Delete this in BlackJack, too.
         public string UserFirstDrawPrompt { get; set; }
         public string ComputerDrawsAgain { get; set; }
         public string UserCloserTo21WinMessage { get; set; }
