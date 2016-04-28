@@ -11,7 +11,7 @@ namespace SheCodesMod8BlackJackWpf
     /// <summary>
     /// Handles computer and player moves ("decision making") and checking the scores.
     /// </summary>
-    class Game
+    public class Game
     {
         public bool UserWon { get; set; }
         public bool ComputerWon { get; set; }
@@ -19,6 +19,8 @@ namespace SheCodesMod8BlackJackWpf
         public int ComputerScore { get; set; }
         public Deck Deck { get; set; }
         public MainWindow mainWin { get; set; }
+        public int NumberOfCardsDrawnByUser { get; set; }
+        public int NumberOfCardsDrawnByComputer { get; set; }
 
         public Game()
         {
@@ -43,10 +45,11 @@ namespace SheCodesMod8BlackJackWpf
         public void ComputerDrawsCard(Messages gameMessages, bool firstCard = false)
         {
             Card drawnCard = Deck.DrawCard();
+            this.NumberOfCardsDrawnByComputer++;
             this.ComputerScore += drawnCard.GetValue();
             mainWin.TxbBaeBotScore.Text = this.ComputerScore.ToString();
             
-            mainWin.GrdBaesDeck.Children.Add(drawnCard.GetImage(firstCard));
+            mainWin.GrdBaesDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByComputer));
 
             mainWin.TxtBlGameMessages.Text =  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
 
@@ -55,7 +58,6 @@ namespace SheCodesMod8BlackJackWpf
 
             if (ComputerScore == 21)
             {
-                Console.WriteLine(gameMessages.BlackJackBanner);
                 this.ComputerWon = true; // Why do I still have this property?
                 mainWin.TxtBlGameMessages.Text = gameMessages.BlackJackBanner;
                 mainWin.TxtBlGameMessages.Text += gameMessages.RandomComputerWonMessage(Deck);
@@ -79,14 +81,15 @@ namespace SheCodesMod8BlackJackWpf
         public void UserDrawsCard(Messages gameMessages, bool firstCard = false)
         {
             Card drawnCard = Deck.DrawCard();
+            this.NumberOfCardsDrawnByUser++;
             this.UserScore += drawnCard.GetValue();
             mainWin.TxbUserScore.Text = this.UserScore.ToString();
-            mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard));
+            mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByUser));
             mainWin.TxtBlGameMessages.Text = String.Format("You drew: \"{0}\". Your current score is: {1}.", drawnCard.GetFace(), this.UserScore);
 
             if (UserScore == 21)
             {
-                Console.WriteLine(gameMessages.BlackJackBanner);
+                mainWin.TxtBlGameMessages.Text = (gameMessages.BlackJackBanner);
                 this.UserWon = true;
                 Console.WriteLine(gameMessages.RandomUserWonMessage(Deck));
                 GameOver(UserWon);
@@ -94,7 +97,7 @@ namespace SheCodesMod8BlackJackWpf
 
             if (UserScore > 21)
             {
-                Console.WriteLine(gameMessages.BustBanner);
+                mainWin.TxtBlGameMessages.Text = (gameMessages.BustBanner);
                 this.ComputerWon = true;
                 Console.WriteLine(gameMessages.RandomComputerWonMessage(Deck));
                 GameOver(UserWon);
@@ -141,7 +144,7 @@ namespace SheCodesMod8BlackJackWpf
         {
             if (UserScore > ComputerScore)
             {
-                Console.WriteLine(gameMessages.UserCloserTo21WinMessage);
+                this.UserWon = true;
                 GameOver(UserWon);
             }
         }
@@ -169,8 +172,11 @@ namespace SheCodesMod8BlackJackWpf
                 mainWin.TxtBlGameMessages.Text = "Please start a new Game!";
                 mainWin.TxbBaeBotScore.Text = null;
                 mainWin.TxbUserScore.Text = null;
+                UserScore = 0;
+                ComputerScore = 0;
                 mainWin.GrdBaesDeck.Children.Clear();
                 mainWin.GrdMyDeck.Children.Clear();
+                mainWin.BtnStartGame.IsEnabled = true;
             }
             else
                 mainWin.Close();

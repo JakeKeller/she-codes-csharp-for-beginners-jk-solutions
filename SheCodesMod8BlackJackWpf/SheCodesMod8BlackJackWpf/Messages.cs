@@ -16,10 +16,6 @@ namespace SheCodesMod8BlackJackWpf
     /// </summary>
     public class Messages
     {
-        /* 
-        
-        */
-
         public string WelcomeMessage { get; set; }
         public string GameRules { get; set; }
         public string StartMessage { get; set; }
@@ -47,8 +43,8 @@ namespace SheCodesMod8BlackJackWpf
             GameRules = "***Rules***\nWhoever gets 21 points (Blackjack!) wins. -- " +
                 "Whoever goes over 21 points (Bust!) loses.\n" +
                 "After each player draws their initial two cards " +
-                "they can chose to draw another card " +
-                "or to \"stand\" when their turn comes. " +
+                "they can chose to draw another card (\"Hit me!\") " +
+                "or to \"stand\" (\"Pass!\") when their turn comes.\n" +
                 "If they stand, whoever is closer to 21 wins.\n" +
                 "Keep in mind that the utmost goal should be to " +
                 "humiliate your opponent by getting a Blackjack! -- " +

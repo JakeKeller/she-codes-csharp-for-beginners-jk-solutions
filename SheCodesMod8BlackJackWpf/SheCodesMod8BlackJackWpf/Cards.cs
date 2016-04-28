@@ -93,12 +93,13 @@ namespace SheCodesMod8BlackJackWpf
             return face;
         }
 
-        public Image GetImage(bool firstCard)
+        public Image GetImage(bool firstCard, int numerOfCardsDrawnByPlayer)
         {
             string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
             string imageFileExtension = ".png";
             string imageUri = string.Format(resourcesFolderPath + this.ImageIdentifier + imageFileExtension);
+            int imageOffset = ((numerOfCardsDrawnByPlayer -1)* 60); // This is part of a messy workaround in order to get the images to overlap correctly.
 
             Image image = new Image();
             image.Source = new BitmapImage(new Uri(imageUri));
@@ -107,7 +108,9 @@ namespace SheCodesMod8BlackJackWpf
                 image.Margin = new System.Windows.Thickness(0, 0, 0, 0);
             }
             else
-            image.Margin = new System.Windows.Thickness(60, 0, 0, 0);
+            {
+                image.Margin = new System.Windows.Thickness(imageOffset, 0, 0, 0);
+            }
 
             return image;
 

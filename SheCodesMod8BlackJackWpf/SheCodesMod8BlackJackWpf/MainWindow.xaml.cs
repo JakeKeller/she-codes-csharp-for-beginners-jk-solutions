@@ -22,15 +22,18 @@ namespace SheCodesMod8BlackJackWpf
     public partial class MainWindow : Window
     {
         public Messages gameMessages { get; set; }
+        public Game newGame { get; set; }
         
         public MainWindow()
         {
             InitializeComponent();
 
             gameMessages = new Messages();
+            newGame = new Game();
             TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
             BtnDraw.IsEnabled = false;
             BtnPass.IsEnabled = false;
+            //Game newGame = new Game();
 
             //string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             //string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
@@ -56,12 +59,17 @@ namespace SheCodesMod8BlackJackWpf
             //CnvMyDeck.Children.Add(TestImage2);
 
         }
-
+        /// <summary>
+        /// This method replaces part of the "Main method" of my non-wpf version of BlackJack.
+        /// To be honest I don't know what async means, yet. I snuck that in to enable Task.Delay, see below.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void BtnStartGame_Click(object sender, RoutedEventArgs e)
         {
             // Bool firstCard exists because the first card's image needs a different margin porperty to properly display.
             bool firstCard = true;
-            Game newGame = new Game();
+            BtnStartGame.IsEnabled = false;
             TxtBlGameMessages.Text = gameMessages.StartMessage;
             newGame.ComputerDrawsCard(gameMessages, firstCard);
             /*
@@ -82,14 +90,20 @@ namespace SheCodesMod8BlackJackWpf
             // Change this to a tool tip.
         }
 
-        private void BtnDraw_Click(object sender, RoutedEventArgs e)
+        private async void BtnDraw_Click(object sender, RoutedEventArgs e)
         {
+            newGame.UserDrawsCard(gameMessages);
+            await Task.Delay(1000);
 
+            // Hav BaeBot make his decision here.. and if he stands
         }
 
-        private void BtnPass_Click(object sender, RoutedEventArgs e)
+        private async void BtnPass_Click(object sender, RoutedEventArgs e)
         {
-
+            TxtBlGameMessages.Text = gameMessages.UserStandsMessage;
+            await Task.Delay(1000);
+            newGame.CheckIfUserIsCloserTo21(gameMessages);
+            newGame.CheckIfComputerIsCloserTo21(gameMessages);
         }
     }
 }
