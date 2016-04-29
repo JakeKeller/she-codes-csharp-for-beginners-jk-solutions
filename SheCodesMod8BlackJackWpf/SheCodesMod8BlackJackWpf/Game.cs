@@ -58,8 +58,9 @@ namespace SheCodesMod8BlackJackWpf
 
             mainWin.TxtBlGameMessages.Text =  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
 
+            //mainWin.BtnDraw.IsEnabled = true;
+            //mainWin.BtnPass.IsEnabled = true;
 
-            //mainWin.TxtBlGameMessages.Text = drawnCard.GetImage();
 
             if (ComputerScore == 21)
             {
@@ -78,8 +79,8 @@ namespace SheCodesMod8BlackJackWpf
             }
             else
             {
-                mainWin.BtnPass.IsEnabled = true;
-                mainWin.BtnDraw.IsEnabled = true;
+                //mainWin.BtnPass.IsEnabled = true;
+                //mainWin.BtnDraw.IsEnabled = true;
             }
         }
 
@@ -126,7 +127,11 @@ namespace SheCodesMod8BlackJackWpf
 
         public void ComputerDrawDecision(Messages gameMessages)
         {
-            Console.WriteLine("\nBAE BOT is making his move.");
+            if (UserWon | ComputerWon)
+            {
+                return;
+            }
+            mainWin.TxtBlGameMessages.Text = ("\nBAE BOT is making his move.");
 
             int randomNumber = Deck.RandomGenerator.Next(0, 2);
 
@@ -144,7 +149,7 @@ namespace SheCodesMod8BlackJackWpf
 
         public void ComputerStands(Messages gameMessages)
         {
-            Console.WriteLine(gameMessages.ComputerStandsMessage);
+            mainWin.TxtBlGameMessages.Text = (gameMessages.ComputerStandsMessage);
             this.CheckIfComputerIsCloserTo21(gameMessages);
         }
 
@@ -181,14 +186,14 @@ namespace SheCodesMod8BlackJackWpf
                 mainWin.TxbBaeBotScore.Text = null;
                 mainWin.TxbUserScore.Text = null;
                 UserScore = 0;
-                ComputerScore = 15;
+                ComputerScore = 0;
                 mainWin.GrdBaesDeck.Children.Clear();
                 mainWin.GrdMyDeck.Children.Clear();
                 mainWin.BtnStartGame.IsEnabled = true;
-                //this.UserWon = false;
-                //this.ComputerWon = false;
                 this.NumberOfCardsDrawnByUser = 0;
                 this.NumberOfCardsDrawnByComputer = 0;
+                mainWin.BtnDraw.IsEnabled = false;
+                mainWin.BtnPass.IsEnabled = false;
             }
             else
                 mainWin.Close();

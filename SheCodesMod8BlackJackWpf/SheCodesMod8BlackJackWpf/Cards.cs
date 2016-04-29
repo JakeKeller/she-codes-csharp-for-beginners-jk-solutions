@@ -114,8 +114,6 @@ namespace SheCodesMod8BlackJackWpf
 
             return image;
 
-            
-        
         }
 
     }

@@ -30,9 +30,9 @@
         <DockPanel Grid.Row="2" Grid.Column="2">
             <Label DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24">Bae's Deck:</Label>
         </DockPanel>
-        <Grid Name="GrdMyDeck" Grid.Row="3" Margin="10,0,0,0" HorizontalAlignment="Left" >
+        <Grid Name="GrdMyDeck" Grid.Row="3" Margin="10,0,0,0" HorizontalAlignment="Stretch" >
         </Grid>
-        <Grid Name="GrdBaesDeck" Grid.Row="3" Grid.Column="2" Margin="10,0,0,0" HorizontalAlignment= "Left">
+        <Grid Name="GrdBaesDeck" Grid.Row="3" Grid.Column="2" Margin="10,0,0,0" HorizontalAlignment= "Stretch">
         </Grid>
         <DockPanel Grid.Row="4">
             <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="24">My Score:</Label>

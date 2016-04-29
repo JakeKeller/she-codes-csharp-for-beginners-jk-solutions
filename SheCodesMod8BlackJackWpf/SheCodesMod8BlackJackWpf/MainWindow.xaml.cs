@@ -84,6 +84,8 @@ namespace SheCodesMod8BlackJackWpf
             newGame.UserDrawsCard(gameMessages, firstCard);
             await Task.Delay(1000);
             newGame.UserDrawsCard(gameMessages);
+            BtnDraw.IsEnabled = true;
+            BtnPass.IsEnabled = true;
         }
 
         private void BtnHelp_Click(object sender, RoutedEventArgs e)
@@ -96,8 +98,7 @@ namespace SheCodesMod8BlackJackWpf
         {
             newGame.UserDrawsCard(gameMessages);
             await Task.Delay(1000);
-
-            // Hav BaeBot make his decision here.. and if he stands
+            newGame.ComputerDrawDecision(gameMessages);
         }
 
         private async void BtnPass_Click(object sender, RoutedEventArgs e)
