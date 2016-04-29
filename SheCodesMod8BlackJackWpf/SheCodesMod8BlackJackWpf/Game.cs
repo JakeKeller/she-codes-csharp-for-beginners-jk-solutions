@@ -21,6 +21,7 @@ namespace SheCodesMod8BlackJackWpf
         public MainWindow mainWin { get; set; }
         public int NumberOfCardsDrawnByUser { get; set; }
         public int NumberOfCardsDrawnByComputer { get; set; }
+        public bool GameOverFlag { get; set; }
 
         public Game()
         {
@@ -44,6 +45,10 @@ namespace SheCodesMod8BlackJackWpf
 
         public void ComputerDrawsCard(Messages gameMessages, bool firstCard = false)
         {
+
+            if (UserWon | ComputerWon)
+                return;
+
             Card drawnCard = Deck.DrawCard();
             this.NumberOfCardsDrawnByComputer++;
             this.ComputerScore += drawnCard.GetValue();
@@ -80,6 +85,9 @@ namespace SheCodesMod8BlackJackWpf
 
         public void UserDrawsCard(Messages gameMessages, bool firstCard = false)
         {
+            if (UserWon | ComputerWon)
+                return;
+
             Card drawnCard = Deck.DrawCard();
             this.NumberOfCardsDrawnByUser++;
             this.UserScore += drawnCard.GetValue();
@@ -173,10 +181,14 @@ namespace SheCodesMod8BlackJackWpf
                 mainWin.TxbBaeBotScore.Text = null;
                 mainWin.TxbUserScore.Text = null;
                 UserScore = 0;
-                ComputerScore = 0;
+                ComputerScore = 15;
                 mainWin.GrdBaesDeck.Children.Clear();
                 mainWin.GrdMyDeck.Children.Clear();
                 mainWin.BtnStartGame.IsEnabled = true;
+                //this.UserWon = false;
+                //this.ComputerWon = false;
+                this.NumberOfCardsDrawnByUser = 0;
+                this.NumberOfCardsDrawnByComputer = 0;
             }
             else
                 mainWin.Close();

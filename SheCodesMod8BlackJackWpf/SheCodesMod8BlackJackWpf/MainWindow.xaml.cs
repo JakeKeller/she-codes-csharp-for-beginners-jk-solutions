@@ -71,6 +71,8 @@ namespace SheCodesMod8BlackJackWpf
             bool firstCard = true;
             BtnStartGame.IsEnabled = false;
             TxtBlGameMessages.Text = gameMessages.StartMessage;
+            newGame.ComputerWon = false;
+            newGame.UserWon = false;
             newGame.ComputerDrawsCard(gameMessages, firstCard);
             /*
             Added a delay to enable player to read messages in fast succession and for graphical "animation".
