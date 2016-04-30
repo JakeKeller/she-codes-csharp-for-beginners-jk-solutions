@@ -56,7 +56,7 @@ namespace SheCodesMod8BlackJackWpf
             
             mainWin.GrdBaesDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByComputer));
 
-            mainWin.TxtBlGameMessages.Text =  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
+            //mainWin.TxtBlGameMessages.Text =  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
 
             //mainWin.BtnDraw.IsEnabled = true;
             //mainWin.BtnPass.IsEnabled = true;
@@ -94,7 +94,7 @@ namespace SheCodesMod8BlackJackWpf
             this.UserScore += drawnCard.GetValue();
             mainWin.TxbUserScore.Text = this.UserScore.ToString();
             mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByUser));
-            mainWin.TxtBlGameMessages.Text = String.Format("You drew: \"{0}\". Your current score is: {1}.", drawnCard.GetFace(), this.UserScore);
+            //mainWin.TxtBlGameMessages.Text = String.Format("You drew: \"{0}\". Your current score is: {1}.", drawnCard.GetFace(), this.UserScore);
 
             if (UserScore == 21)
             {
@@ -183,8 +183,8 @@ namespace SheCodesMod8BlackJackWpf
             if (result == MessageBoxResult.Yes)
             {
                 mainWin.TxtBlGameMessages.Text = "Please start a new Game!";
-                mainWin.TxbBaeBotScore.Text = null;
-                mainWin.TxbUserScore.Text = null;
+                mainWin.TxbBaeBotScore.Text = "0";
+                mainWin.TxbUserScore.Text = "0";
                 UserScore = 0;
                 ComputerScore = 0;
                 mainWin.GrdBaesDeck.Children.Clear();

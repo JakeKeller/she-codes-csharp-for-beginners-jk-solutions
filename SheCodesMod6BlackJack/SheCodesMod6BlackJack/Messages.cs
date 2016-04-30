@@ -5,10 +5,6 @@
     /// </summary>
     class Messages
     {
-        /* 
-        
-        */
-
         public string WelcomeMessage { get; set; }
         public string GameRules { get; set; }
         public string StartMessage { get; set; }

@@ -70,7 +70,7 @@ namespace SheCodesMod8BlackJackWpf
             // Bool firstCard exists because the first card's image needs a different margin porperty to properly display.
             bool firstCard = true;
             BtnStartGame.IsEnabled = false;
-            TxtBlGameMessages.Text = gameMessages.StartMessage;
+            //TxtBlGameMessages.Text = gameMessages.StartMessage;
             newGame.ComputerWon = false;
             newGame.UserWon = false;
             newGame.ComputerDrawsCard(gameMessages, firstCard);
