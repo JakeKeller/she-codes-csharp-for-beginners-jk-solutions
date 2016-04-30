@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 
 namespace SheCodesMod8BlackJackWpf
 {
@@ -27,37 +14,11 @@ namespace SheCodesMod8BlackJackWpf
         public MainWindow()
         {
             InitializeComponent();
-
             gameMessages = new Messages();
             newGame = new Game();
             TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
             BtnDraw.IsEnabled = false;
             BtnPass.IsEnabled = false;
-            //Game newGame = new Game();
-
-            //string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            //string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
-
-            //var TestImage = new Image();
-            //var TestImageFile = new BitmapImage();
-            //TestImageFile.BeginInit();
-            //TestImageFile.UriSource = new Uri(String.Format(resourcesFolderPath + "52.png"));
-            //TestImageFile.EndInit();
-            //TestImage.Source = TestImageFile;
-
-            //var TestImage2 = new Image();
-            ////TestImage2.Margin = new Thickness(30);
-
-
-            ////var TestImageFile2 = new BitmapImage();
-            ////TestImageFile2.BeginInit();
-            ////TestImageFile2.UriSource = new Uri(String.Format(resourcesFolderPath + "4.png"));
-            ////TestImageFile2.EndInit();
-            ////TestImage2.Source = TestImageFile2;
-            ////TestImage2.Margin = new Thickness(60, 0, 0, 0);          
-
-            //CnvMyDeck.Children.Add(TestImage2);
-
         }
         /// <summary>
         /// This method replaces part of the "Main method" of my non-wpf version of BlackJack.
@@ -67,10 +28,9 @@ namespace SheCodesMod8BlackJackWpf
         /// <param name="e"></param>
         private async void BtnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            // Bool firstCard exists because the first card's image needs a different margin porperty to properly display.
+            // Bool firstCard exists because the first card's image needs a different margin to properly display.
             bool firstCard = true;
             BtnStartGame.IsEnabled = false;
-            //TxtBlGameMessages.Text = gameMessages.StartMessage;
             newGame.ComputerWon = false;
             newGame.UserWon = false;
             newGame.ComputerDrawsCard(gameMessages, firstCard);

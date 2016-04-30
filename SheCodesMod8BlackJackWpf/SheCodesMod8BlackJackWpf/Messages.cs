@@ -18,7 +18,6 @@ namespace SheCodesMod8BlackJackWpf
     {
         public string WelcomeMessage { get; set; }
         public string GameRules { get; set; }
-        public string StartMessage { get; set; }
         public string ComputerWonMessage { get; set; } // Delete this in BlackJack, too.
         public string UserFirstDrawPrompt { get; set; }
         public string ComputerDrawsAgain { get; set; }
@@ -51,8 +50,6 @@ namespace SheCodesMod8BlackJackWpf
                 "At least that's how BAE-BOT thinks about it...\n" +
                 "Know your cards: Ace is worth 1, " +
                 "Queen and Jack are each 10, King is 13.";
-
-            StartMessage = "\n\nBAE-BOT started the game by drawing two cards.";
 
             UserFirstDrawPrompt = "\nYour turn. Draw your first two cards by pressing Enter.";
 

@@ -35,14 +35,6 @@ namespace SheCodesMod8BlackJackWpf
             mainWin = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) as MainWindow;
         }
 
-        /* 
-        Note: I wonder why shecodes didn't suggest making a player class or a class for each player.
-        Also, if we had "drawn" as a property of a card, we could handle the values of that card more easily here, like a "flag".
-        Also, should I make just one method called move rather than one for each player?
-        Make as many methods universal as possible and leave the specificity in the messages?
-        But the more I do that, the more I have to "pass around" parameters calling methods from classes all over 
-        */
-
         public void ComputerDrawsCard(Messages gameMessages, bool firstCard = false)
         {
 
@@ -56,15 +48,9 @@ namespace SheCodesMod8BlackJackWpf
             
             mainWin.GrdBaesDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByComputer));
 
-            //mainWin.TxtBlGameMessages.Text =  String.Format("BAE-BOT drew: \"{0}\". His current score is: {1}.", drawnCard.GetFace(), this.ComputerScore);
-
-            //mainWin.BtnDraw.IsEnabled = true;
-            //mainWin.BtnPass.IsEnabled = true;
-
-
             if (ComputerScore == 21)
             {
-                this.ComputerWon = true; // Why do I still have this property?
+                this.ComputerWon = true;
                 mainWin.TxtBlGameMessages.Text = gameMessages.BlackJackBanner;
                 mainWin.TxtBlGameMessages.Text += gameMessages.RandomComputerWonMessage(Deck);
                 GameOver(UserWon);
@@ -76,11 +62,6 @@ namespace SheCodesMod8BlackJackWpf
                 mainWin.TxtBlGameMessages.Text = gameMessages.BustBanner;
                 mainWin.TxtBlGameMessages.Text += gameMessages.RandomUserWonMessage(Deck);
                 GameOver(UserWon);
-            }
-            else
-            {
-                //mainWin.BtnPass.IsEnabled = true;
-                //mainWin.BtnDraw.IsEnabled = true;
             }
         }
 
