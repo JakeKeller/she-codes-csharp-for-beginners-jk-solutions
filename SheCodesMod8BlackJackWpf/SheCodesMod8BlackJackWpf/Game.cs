@@ -65,7 +65,7 @@ namespace SheCodesMod8BlackJackWpf
             }
         }
 
-        public void UserDrawsCard(Messages gameMessages, bool firstCard = false)
+        public async void UserDrawsCard(Messages gameMessages, bool firstCard = false)
         {
             if (UserWon | ComputerWon)
                 return;
@@ -74,6 +74,11 @@ namespace SheCodesMod8BlackJackWpf
             this.NumberOfCardsDrawnByUser++;
             this.UserScore += drawnCard.GetValue();
             mainWin.TxbUserScore.Text = this.UserScore.ToString();
+            drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser); // Displays backside of card
+            await Task.Delay(100);
+            mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByUser));
+            drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser); // Displays backside of card
+            await Task.Delay(100);
             mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByUser));
             //mainWin.TxtBlGameMessages.Text = String.Format("You drew: \"{0}\". Your current score is: {1}.", drawnCard.GetFace(), this.UserScore);
 
@@ -101,7 +106,7 @@ namespace SheCodesMod8BlackJackWpf
             {
                 Console.WriteLine(gameMessages.UserStandsMessage);
                 this.CheckIfUserIsCloserTo21(gameMessages);
-            }
+            } 
             else
                 this.UserDrawsCard(gameMessages);
         }

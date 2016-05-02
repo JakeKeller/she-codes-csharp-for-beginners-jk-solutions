@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SheCodesMod8BlackJackWpf"
         mc:Ignorable="d"
         Title="Bae's BlackJack" Height="540" Width="960">
-    <Grid Name="GrdMainGrid" Background="#FF82D67D" >
+    <Grid Name="GrdMainGrid" Background="#FF43C53B" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>

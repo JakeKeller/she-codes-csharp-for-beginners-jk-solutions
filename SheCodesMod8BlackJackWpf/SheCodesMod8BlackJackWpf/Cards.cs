@@ -10,6 +10,7 @@ using System.Windows;
 
 namespace SheCodesMod8BlackJackWpf
 {
+
     /// <summary>
     /// Handles and verifies all possible cards in the deck, calculates their values, provides the image etc.
     /// </summary>
@@ -18,12 +19,14 @@ namespace SheCodesMod8BlackJackWpf
         public string Suit { get; set; }
         public string Rank { get; set; }
         public int ImageIdentifier { get; set; }
+        public MainWindow mainWin { get; set; }
 
         public Card(string suit, string rank)
         {
             this.Suit = suit;
             this.Rank = rank;
             VerifySuitOrRank(suit, rank);
+            mainWin = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) as MainWindow;
         }
 
         public static string[] ValidSuits()
@@ -93,8 +96,30 @@ namespace SheCodesMod8BlackJackWpf
             return face;
         }
 
+        public void DisplayCardCover(bool firstCard, int numberOfCardsDrawnByPlayer)
+        {
+            string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
+            string imageFileExtension = ".png";
+            string imageUri = string.Format(resourcesFolderPath + "b1fv" + imageFileExtension);
+            int imageOffset = ((numberOfCardsDrawnByPlayer - 1) * 60); // This is part of a messy workaround in order to get the images to overlap correctly.
+
+            Image image = new Image();
+            image.Source = new BitmapImage(new Uri(imageUri));
+            if (firstCard)
+            {
+                image.Margin = new System.Windows.Thickness(0, 0, 0, 0);
+            }
+            else
+            {
+                image.Margin = new System.Windows.Thickness(imageOffset, 0, 0, 0);
+            }
+            mainWin.GrdMyDeck.Children.Add(image);
+        }
+
         public Image GetImage(bool firstCard, int numberOfCardsDrawnByPlayer)
         {
+
             string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
             string imageFileExtension = ".png";

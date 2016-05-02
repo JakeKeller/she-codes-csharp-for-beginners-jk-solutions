@@ -22,7 +22,7 @@ namespace SheCodesMod8BlackJackWpf
         }
         /// <summary>
         /// This method replaces part of the "Main method" of my non-wpf version of BlackJack.
-        /// To be honest I don't know what async means, yet. I snuck that in to enable Task.Delay, see below.
+        /// Async wasn't covered in the course. I snuck that in to enable Task.Delay, see below.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -35,7 +35,7 @@ namespace SheCodesMod8BlackJackWpf
             newGame.UserWon = false;
             newGame.ComputerDrawsCard(gameMessages, firstCard);
             /*
-            Added a delay to enable player to read messages in fast succession and for graphical "animation".
+            Added a delay to enable player to read messages in fast succession and for the faintest hint of graphical "animation".
             See: http://stackoverflow.com/questions/15599884/how-to-put-delay-before-doing-an-operation-in-wpf
             */
             await Task.Delay(1000);
