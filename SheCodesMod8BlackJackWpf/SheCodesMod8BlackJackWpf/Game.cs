@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 
 namespace SheCodesMod8BlackJackWpf
@@ -15,6 +16,7 @@ namespace SheCodesMod8BlackJackWpf
     {
         public bool UserWon { get; set; }
         public bool ComputerWon { get; set; }
+        public bool GameOverByDraw { get; set; }
         public int UserScore { get; set; }
         public int ComputerScore { get; set; }
         public Deck Deck { get; set; }
@@ -35,7 +37,7 @@ namespace SheCodesMod8BlackJackWpf
             mainWin = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) as MainWindow;
         }
 
-        public void ComputerDrawsCard(Messages gameMessages, bool firstCard = false)
+        public async void ComputerDrawsCard(Messages gameMessages, bool firstCard = false)
         {
 
             if (UserWon | ComputerWon)
@@ -45,7 +47,10 @@ namespace SheCodesMod8BlackJackWpf
             this.NumberOfCardsDrawnByComputer++;
             this.ComputerScore += drawnCard.GetValue();
             mainWin.TxbBaeBotScore.Text = this.ComputerScore.ToString();
-            
+            //drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByComputer); // Displays backside of card.
+            mainWin.GrdBaesDeck.Children.Add(drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByComputer));
+            await Task.Delay(150);
+            ////Thread.Sleep(200);
             mainWin.GrdBaesDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByComputer));
 
             if (ComputerScore == 21)
@@ -74,12 +79,13 @@ namespace SheCodesMod8BlackJackWpf
             this.NumberOfCardsDrawnByUser++;
             this.UserScore += drawnCard.GetValue();
             mainWin.TxbUserScore.Text = this.UserScore.ToString();
-            drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser); // Displays backside of card
-            await Task.Delay(100);
+            //drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser); // Displays backside of card.
+            mainWin.GrdMyDeck.Children.Add(drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser));
+            await Task.Delay(150);
             mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByUser));
-            drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser); // Displays backside of card
-            await Task.Delay(100);
-            mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByUser));
+            //drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser); // Displays backside of card.
+            //await Task.Delay(100);
+            //mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByUser));
             //mainWin.TxtBlGameMessages.Text = String.Format("You drew: \"{0}\". Your current score is: {1}.", drawnCard.GetFace(), this.UserScore);
 
             if (UserScore == 21)
@@ -152,17 +158,27 @@ namespace SheCodesMod8BlackJackWpf
         {
             if (ComputerScore > UserScore)
             {
-                Console.WriteLine(gameMessages.ComputerCloserTo21WinMessage);
+                mainWin.TxtBlGameMessages.Text = (gameMessages.ComputerCloserTo21WinMessage);
                 GameOver(UserWon);
             }
-        }
-        public void GameOver(bool userWon)
-        {
-            string gameOverMessageBoxCaption = "Bae Bot won!";
-            if (userWon)
+            if (ComputerScore == UserScore)
             {
+                mainWin.TxtBlGameMessages.Text = (gameMessages.DrawBanner);
+                this.GameOverByDraw = true;
+                GameOver(UserWon, GameOverByDraw);
+            }
+                
+            
+        }
+        public void GameOver(bool userWon, bool gameOverByDraw = false)
+        {
+            string gameOverMessageBoxCaption;
+            if (gameOverByDraw)
+                gameOverMessageBoxCaption = "It's a draw!";
+            else if (userWon)
                 gameOverMessageBoxCaption = "You won!";
-            }            
+            else
+            gameOverMessageBoxCaption = "Bae Bot won!";
 
             MessageBoxResult result = MessageBox.Show("Would you like to restart the Game?", gameOverMessageBoxCaption, MessageBoxButton.YesNo);
 
@@ -180,6 +196,9 @@ namespace SheCodesMod8BlackJackWpf
                 this.NumberOfCardsDrawnByComputer = 0;
                 mainWin.BtnDraw.IsEnabled = false;
                 mainWin.BtnPass.IsEnabled = false;
+                userWon = false;
+                ComputerWon = false;
+                GameOverByDraw = false;
             }
             else
                 mainWin.Close();

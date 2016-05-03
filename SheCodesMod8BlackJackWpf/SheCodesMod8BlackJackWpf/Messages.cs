@@ -61,9 +61,9 @@ namespace SheCodesMod8BlackJackWpf
             ComputerCloserTo21WinMessage = "\nBAE-BOT:\"I won by being closer to 21.\n" +
                 "I like taking risks, just not the risk of you winning.\"";
 
-            ComputerStandsMessage = "BAE-BOT chose to stand!";
+            ComputerStandsMessage = "BAE-BOT chose to stand!\nWhoever is closer to 21 points wins.";
 
-            UserStandsMessage = "\nYou chose to stand!";
+            UserStandsMessage = "\nYou chose to stand!\nWhoever is closer to 21 points wins.";
 
             BlackJackBanner = "\n*************************\n" +
                 "***     BLACKJACK     ***\n" +
