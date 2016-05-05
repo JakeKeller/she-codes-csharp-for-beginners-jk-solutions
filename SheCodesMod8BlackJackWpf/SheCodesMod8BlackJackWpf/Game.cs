@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
 using System.Windows;
 
 namespace SheCodesMod8BlackJackWpf
@@ -31,9 +27,8 @@ namespace SheCodesMod8BlackJackWpf
             this.ComputerWon = false;
             this.UserScore = 0;
             this.ComputerScore = 0;
-
             this.Deck = new Deck();
-
+            // Changing window content from within another class, see: http://the--semicolon.blogspot.de/p/change-wpf-window-label-content-from.html 
             mainWin = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) as MainWindow;
         }
 
@@ -47,7 +42,7 @@ namespace SheCodesMod8BlackJackWpf
             this.NumberOfCardsDrawnByComputer++;
             this.ComputerScore += drawnCard.GetValue();
             mainWin.TxbBaeBotScore.Text = this.ComputerScore.ToString();
-            //drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByComputer); // Displays backside of card.
+            drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByComputer); // Displays backside of card.
             mainWin.GrdBaesDeck.Children.Add(drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByComputer));
             await Task.Delay(150);
             ////Thread.Sleep(200);
@@ -170,6 +165,14 @@ namespace SheCodesMod8BlackJackWpf
                 
             
         }
+
+        /// <summary>
+        /// Handles behavior when the game is lost/won or has ended by draw.
+        /// Needed to display messagebox and to call StartGame() in MainWindow.xaml.cs
+        /// which resets the game and deck classes. It also clears the decks and score controls on the GUI.
+        /// </summary>
+        /// <param name="userWon"></param>
+        /// <param name="gameOverByDraw"></param>
         public void GameOver(bool userWon, bool gameOverByDraw = false)
         {
             string gameOverMessageBoxCaption;
@@ -187,8 +190,6 @@ namespace SheCodesMod8BlackJackWpf
                 mainWin.TxtBlGameMessages.Text = "Please start a new Game!";
                 mainWin.TxbBaeBotScore.Text = "0";
                 mainWin.TxbUserScore.Text = "0";
-                UserScore = 0;
-                ComputerScore = 0;
                 mainWin.GrdBaesDeck.Children.Clear();
                 mainWin.GrdMyDeck.Children.Clear();
                 mainWin.BtnStartGame.IsEnabled = true;
@@ -196,9 +197,6 @@ namespace SheCodesMod8BlackJackWpf
                 this.NumberOfCardsDrawnByComputer = 0;
                 mainWin.BtnDraw.IsEnabled = false;
                 mainWin.BtnPass.IsEnabled = false;
-                userWon = false;
-                ComputerWon = false;
-                GameOverByDraw = false;
             }
             else
                 mainWin.Close();

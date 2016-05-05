@@ -124,7 +124,7 @@ namespace SheCodesMod8BlackJackWpf
             string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
             string imageFileExtension = ".png";
             string imageUri = string.Format(resourcesFolderPath + this.ImageIdentifier + imageFileExtension);
-            int imageOffset = ((numberOfCardsDrawnByPlayer -1)* 60); // This is part of a messy workaround in order to get the images to overlap correctly.
+            int imageOffset = ((numberOfCardsDrawnByPlayer - 1) * 60); // This is part of a messy workaround in order to get the images to overlap correctly.
 
             Image image = new Image();
             image.Source = new BitmapImage(new Uri(imageUri));
