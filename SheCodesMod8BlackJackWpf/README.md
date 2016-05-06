@@ -8,7 +8,9 @@ https://github.com/dinazil/she-codes-csharp-for-beginners.git
 
 Notes and Comments are most often "notes to self" and aimed at helping me understand why I did what. They are not necessarily directed towards someone reading my code, please ignore.
 
-Further Notes and known bugs:
+Further Notes:
+
+A screenshot of the game can be found in the SheCodesmod8BlackJackWPf folder.
 
 As with the other parts of this repo. I tried to only use the tools that had been covered in Bob Tabor's course up to the 
 point of the corresponding module in the shecodes companion. The purpose behind this was to avoid using concepts that I am wholly unfamiliar with, 
