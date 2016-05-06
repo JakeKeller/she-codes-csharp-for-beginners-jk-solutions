@@ -42,11 +42,11 @@ namespace SheCodesMod8BlackJackWpf
             this.NumberOfCardsDrawnByComputer++;
             this.ComputerScore += drawnCard.GetValue();
             mainWin.TxbBaeBotScore.Text = this.ComputerScore.ToString();
-            drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByComputer); // Displays backside of card.
-            mainWin.GrdBaesDeck.Children.Add(drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByComputer));
+            drawnCard.ProvideCardCoverImage(firstCard, NumberOfCardsDrawnByComputer); // Displays backside of card.
+            mainWin.GrdBaesDeck.Children.Add(drawnCard.ProvideCardCoverImage(firstCard, NumberOfCardsDrawnByComputer));
             await Task.Delay(150);
             ////Thread.Sleep(200);
-            mainWin.GrdBaesDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByComputer));
+            mainWin.GrdBaesDeck.Children.Add(drawnCard.GetCardImage(firstCard, NumberOfCardsDrawnByComputer));
 
             if (ComputerScore == 21)
             {
@@ -74,14 +74,9 @@ namespace SheCodesMod8BlackJackWpf
             this.NumberOfCardsDrawnByUser++;
             this.UserScore += drawnCard.GetValue();
             mainWin.TxbUserScore.Text = this.UserScore.ToString();
-            //drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser); // Displays backside of card.
-            mainWin.GrdMyDeck.Children.Add(drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser));
+            mainWin.GrdMyDeck.Children.Add(drawnCard.ProvideCardCoverImage(firstCard, NumberOfCardsDrawnByUser));
             await Task.Delay(150);
-            mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByUser));
-            //drawnCard.DisplayCardCover(firstCard, NumberOfCardsDrawnByUser); // Displays backside of card.
-            //await Task.Delay(100);
-            //mainWin.GrdMyDeck.Children.Add(drawnCard.GetImage(firstCard, NumberOfCardsDrawnByUser));
-            //mainWin.TxtBlGameMessages.Text = String.Format("You drew: \"{0}\". Your current score is: {1}.", drawnCard.GetFace(), this.UserScore);
+            mainWin.GrdMyDeck.Children.Add(drawnCard.GetCardImage(firstCard, NumberOfCardsDrawnByUser));
 
             if (UserScore == 21)
             {
@@ -118,7 +113,7 @@ namespace SheCodesMod8BlackJackWpf
             {
                 return;
             }
-            mainWin.TxtBlGameMessages.Text = ("\nBAE BOT is making his move.");
+            mainWin.TxtBlGameMessages.Text = ("\nBAE BOT is making his move."); 
 
             int randomNumber = Deck.RandomGenerator.Next(0, 2);
 

@@ -12,7 +12,7 @@ namespace SheCodesMod8BlackJackWpf
 {
 
     /// <summary>
-    /// Handles and verifies all possible cards in the deck, calculates their values, provides the image etc.
+    /// Handles and verifies all possible cards in the deck. Includes methods to calculate a card's value, provide a card's image, etc.
     /// </summary>
     public class Card
     {
@@ -25,7 +25,6 @@ namespace SheCodesMod8BlackJackWpf
         {
             this.Suit = suit;
             this.Rank = rank;
-            VerifySuitOrRank(suit, rank);
             mainWin = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is MainWindow) as MainWindow;
         }
 
@@ -43,30 +42,6 @@ namespace SheCodesMod8BlackJackWpf
             };
 
             return validRanks;
-        }
-        
-        public void VerifySuitOrRank(string suit, string rank)
-        {
-            // Now that I've created the Card array in Decks.cs I don't know why this method would still be needed!
-
-            bool quit = false;
-            if (ValidSuits().Contains(suit) == false)
-            {
-                Console.WriteLine("{0} is not a valid {1}.", suit, "suit");
-                quit = true;
-            }
-
-            if (ValidRanks().Contains(rank) == false)
-            {
-                Console.WriteLine("{0} is not a valid {1}.", rank, "rank");
-                quit = true;
-            }
-            if (quit)
-            {
-                Console.WriteLine("Program is terminating.");
-                Console.ReadLine();
-                Environment.Exit(1);
-            }
         }
 
         public int GetValue()
@@ -86,17 +61,13 @@ namespace SheCodesMod8BlackJackWpf
             else
                 return int.Parse(this.Rank);
         }
-
-        public string GetFace()
-        {
-            string face = string.Format("{0} of {1}",
-                this.Rank,
-                this.Suit);
-
-            return face;
-        }
-
-        public Image DisplayCardCover(bool firstCard, int numberOfCardsDrawnByPlayer) 
+        /// <summary>
+        /// This method provides an image of the backside of a card for "animation purposes".
+        /// </summary>
+        /// <param name="firstCard"></param>
+        /// <param name="numberOfCardsDrawnByPlayer"></param>
+        /// <returns></returns>
+        public Image ProvideCardCoverImage(bool firstCard, int numberOfCardsDrawnByPlayer) 
         {
             string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
@@ -117,7 +88,7 @@ namespace SheCodesMod8BlackJackWpf
             return image;
         }
 
-        public Image GetImage(bool firstCard, int numberOfCardsDrawnByPlayer)
+        public Image GetCardImage(bool firstCard, int numberOfCardsDrawnByPlayer)
         {
 
             string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);

@@ -36,7 +36,11 @@ namespace SheCodesMod8BlackJackWpf
                     j++;
                 }
             }
-
+            /*
+            The following code takes care of "reading in" the cards that are in folder SheCodesMod8BlackJackWpf\SheCodesMod8BlackJackWpf\Resources\classic-cards.
+            52 Cards are read in in sets of 13 (each suit has 13 cards). I figured out/adjusted the order the cards in the deck are instantiated (above) and 
+            wrote a for loop that assigns the images to the cards so they match. The image identifier is stored in a property of the card class.
+            */
             int firstImage = 52;
             int countDown = 0;
             int offset = 0;
@@ -55,7 +59,10 @@ namespace SheCodesMod8BlackJackWpf
             }
                 RandomGenerator = new Random();
         }
-
+        /// <summary>
+        /// Draws a random card from the deck and sets that index of the deck to null so the card cannot be drawn again.
+        /// </summary>
+        /// <returns></returns>
         public Card DrawCard()
         {
             int randomNumber;
