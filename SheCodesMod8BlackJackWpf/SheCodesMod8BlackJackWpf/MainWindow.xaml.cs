@@ -46,7 +46,7 @@ namespace SheCodesMod8BlackJackWpf
             await Task.Delay(1000);
             newGame.UserDrawsCard(gameMessages);
             BtnDraw.IsEnabled = true;
-            BtnPass.IsEnabled = true;
+            BtnStand.IsEnabled = true;
         }
 
         private void BtnHelp_Click(object sender, RoutedEventArgs e)
@@ -62,8 +62,9 @@ namespace SheCodesMod8BlackJackWpf
             newGame.ComputerDrawDecision(gameMessages);
         }
 
-        private async void BtnPass_Click(object sender, RoutedEventArgs e)
+        private async void BtnStand_Click(object sender, RoutedEventArgs e)
         {
+            newGame.UserChoseToStand = true;
             TxtBlGameMessages.Text = gameMessages.UserStandsMessage;
             await Task.Delay(1000);
             newGame.CheckIfUserIsCloserTo21(gameMessages);
@@ -75,7 +76,7 @@ namespace SheCodesMod8BlackJackWpf
             newGame = new Game();
             TxtBlGameMessages.Text = gameMessages.WelcomeMessage;
             BtnDraw.IsEnabled = false;
-            BtnPass.IsEnabled = false;
+            BtnStand.IsEnabled = false;
         }
     }
 }

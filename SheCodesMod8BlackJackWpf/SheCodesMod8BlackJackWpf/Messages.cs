@@ -44,8 +44,8 @@ namespace SheCodesMod8BlackJackWpf
                 "Whoever goes over 21 points (Bust!) loses.\n" +
                 "The game begins with each player drawing two cards. " +
                 "They can then chose to draw another card (\"Hit me!\") " +
-                "or to \"stand\" (\"Pass!\") when their turn comes.\n" +
-                "If a player choses to stand, whoever is closer to 21 wins.\n" +
+                "or to \"stand\" when their turn comes.\n" +
+                "If both players stand, the higher score wins. You can not draw a card again after chosing to stand.\n" +
                 "Keep in mind that the utmost goal should be to " +
                 "humiliate your opponent by getting a Blackjack!\n" +
                 "Know your cards: Ace is worth 1, " +
@@ -61,9 +61,9 @@ namespace SheCodesMod8BlackJackWpf
             ComputerCloserTo21WinMessage = "\nBAE-BOT:\"I won by being closer to 21.\n" +
                 "I like taking risks, just not the risk of you winning.\"";
 
-            ComputerStandsMessage = "BAE-BOT chose to stand!\nWhoever is closer to 21 points wins.";
+            ComputerStandsMessage = "BAE-BOT chose to stand!";
 
-            UserStandsMessage = "\nYou chose to stand!\nWhoever is closer to 21 points wins.";
+            UserStandsMessage = "You chose to stand!";
 
             BlackJackBanner = "\n*************************\n" +
                 "***     BLACKJACK     ***\n" +
