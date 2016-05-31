@@ -19,3 +19,9 @@ who wrote the companion together.
 
 Here's the link to Bob's fantastic course:
 https://mva.microsoft.com/en-US/training-courses/c-fundamentals-for-absolute-beginners-8295?l=bifAqFYy_204984382
+
+##Disclaimer:
+These solutions are not meant as examples for good code or as a model solutions. I am an absolute beginner and experiment
+with concepts I just learned about and (to a lesser extent) with some concepts I haven't had a chance to familiarize myself with, yet.
+For model solution to the exercises in the she codes companion, please look at their repo at:
+https://github.com/dinazil/she-codes-csharp-for-beginners.git
