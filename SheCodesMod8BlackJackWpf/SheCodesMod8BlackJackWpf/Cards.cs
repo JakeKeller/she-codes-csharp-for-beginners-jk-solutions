@@ -1,12 +1,8 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows;
 
 namespace SheCodesMod8BlackJackWpf
 {
@@ -90,7 +86,6 @@ namespace SheCodesMod8BlackJackWpf
 
         public Image GetCardImage(bool firstCard, int numberOfCardsDrawnByPlayer)
         {
-
             string appFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string resourcesFolderPath = System.IO.Path.Combine(System.IO.Directory.GetParent(appFolderPath).Parent.FullName, "Resources\\classic-cards\\");
             string imageFileExtension = ".png";

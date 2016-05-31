@@ -18,11 +18,6 @@ namespace SheCodesMod8BlackJackWpf
     {
         public string WelcomeMessage { get; set; }
         public string GameRules { get; set; }
-        public string ComputerWonMessage { get; set; } // Delete this in BlackJack, too.
-        public string UserFirstDrawPrompt { get; set; }
-        public string ComputerDrawsAgain { get; set; }
-        public string UserCloserTo21WinMessage { get; set; }
-        public string ComputerCloserTo21WinMessage { get; set; }
         public string ComputerStandsMessage { get; set; }
         public string UserStandsMessage { get; set; }
         public string BlackJackBanner { get; set; }
@@ -50,16 +45,6 @@ namespace SheCodesMod8BlackJackWpf
                 "humiliate your opponent by getting a Blackjack!\n" +
                 "Know your cards: Ace is worth 1, " +
                 "Queen and Jack are each 10, King is 13. The other cards are numbered.";
-
-            UserFirstDrawPrompt = "\nYour turn. Draw your first two cards by pressing Enter.";
-
-            ComputerDrawsAgain = "BAE-BOT is drawing another card.";
-
-            UserCloserTo21WinMessage = "\nBAE-BOT:\"Wow, so you won by being closer to 21 points.\n" +
-                "You couldn't get a Blackjack if your life depended on it.\"";
-
-            ComputerCloserTo21WinMessage = "\nBAE-BOT:\"I won by being closer to 21.\n" +
-                "I like taking risks, just not the risk of you winning.\"";
 
             ComputerStandsMessage = "BAE-BOT chose to stand!";
 

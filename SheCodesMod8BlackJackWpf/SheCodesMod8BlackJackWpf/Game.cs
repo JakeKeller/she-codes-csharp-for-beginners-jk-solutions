@@ -47,7 +47,6 @@ namespace SheCodesMod8BlackJackWpf
             drawnCard.ProvideCardCoverImage(firstCard, NumberOfCardsDrawnByComputer); // Displays backside of card.
             mainWin.GrdComputerDeck.Children.Add(drawnCard.ProvideCardCoverImage(firstCard, NumberOfCardsDrawnByComputer));
             await Task.Delay(150);
-            ////Thread.Sleep(200);
             mainWin.GrdComputerDeck.Children.Add(drawnCard.GetCardImage(firstCard, NumberOfCardsDrawnByComputer));
 
             if (ComputerScore == 21)
@@ -84,7 +83,6 @@ namespace SheCodesMod8BlackJackWpf
             {
                 mainWin.TxtBlGameMessages.Text = (gameMessages.BlackJackBanner);
                 this.UserWon = true;
-                Console.WriteLine(gameMessages.RandomUserWonMessage(Deck));
                 GameOver(UserWon);
             }
 
@@ -92,21 +90,8 @@ namespace SheCodesMod8BlackJackWpf
             {
                 mainWin.TxtBlGameMessages.Text = (gameMessages.BustBanner);
                 this.ComputerWon = true;
-                Console.WriteLine(gameMessages.RandomComputerWonMessage(Deck));
                 GameOver(UserWon);
             }
-        }
-
-        public void UserDrawDecision(Messages gameMessages)
-        {
-            Console.WriteLine("\nMake Your Choice: Press Enter to draw a card \n(or press \"S\" and Enter to \"stand\".)");
-            if (Console.ReadLine().ToUpperInvariant() == "S")
-            {
-                Console.WriteLine(gameMessages.UserStandsMessage);
-                this.CheckIfUserIsCloserTo21(gameMessages);
-            } 
-            else
-                this.UserDrawsCard(gameMessages);
         }
 
         public void ComputerDrawDecision(Messages gameMessages)
@@ -150,7 +135,6 @@ namespace SheCodesMod8BlackJackWpf
         {
             if (ComputerScore > UserScore)
             {
-                mainWin.TxtBlGameMessages.Text = (gameMessages.ComputerCloserTo21WinMessage);
                 GameOver(UserWon);
             }
             if (ComputerScore == UserScore)
@@ -158,14 +142,12 @@ namespace SheCodesMod8BlackJackWpf
                 mainWin.TxtBlGameMessages.Text = (gameMessages.DrawBanner);
                 this.GameOverByDraw = true;
                 GameOver(UserWon, GameOverByDraw);
-            }
-                
-            
+            }       
         }
 
         /// <summary>
         /// Handles behavior when the game is lost/won or has ended by draw.
-        /// Needed to display messagebox and to call StartGame() in MainWindow.xaml.cs
+        /// Is needed to display messagebox and to call StartGame() in MainWindow.xaml.cs
         /// which resets the game and deck classes. It also clears the decks and score controls on the GUI.
         /// </summary>
         /// <param name="userWon"></param>
